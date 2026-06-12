@@ -3,198 +3,612 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Warden VPN - Germany</title>
+<title>🛡️ Warden VPN — Premium VPN Panel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0e1a;--bg-card:#131826;--bg-card-hover:#1a2138;--border:#1f2937;--accent:#00ff9d;--accent-dim:#00ff9d33;--text:#e5e7eb;--text-dim:#9ca3af}
+:root{
+  --bg-0:#05070d;
+  --bg-1:#0a0e1a;
+  --bg-2:#131826;
+  --bg-3:#1a2138;
+  --border:#1f2937;
+  --border-light:#2d3748;
+  --accent:#00ff9d;
+  --accent-2:#3b82f6;
+  --accent-3:#a855f7;
+  --accent-dim:#00ff9d33;
+  --text:#f1f5f9;
+  --text-dim:#94a3b8;
+  --text-mute:#64748b;
+  --danger:#ef4444;
+  --warn:#f59e0b;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;background-image:radial-gradient(circle at 20% 10%,rgba(0,255,157,.08) 0,transparent 40%),radial-gradient(circle at 80% 80%,rgba(59,130,246,.06) 0,transparent 40%)}
-.container{max-width:900px;margin:0 auto;padding:2rem 1rem}
-header{text-align:center;margin-bottom:3rem;padding-top:1rem}
-.logo{font-size:4rem;margin-bottom:.5rem;filter:drop-shadow(0 0 20px var(--accent-dim))}
-h1{font-size:2.2rem;font-weight:800;margin-bottom:.5rem;background:linear-gradient(135deg,var(--accent),#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.subtitle{color:var(--text-dim);font-size:1rem}
-.server-badge{display:inline-flex;align-items:center;gap:.5rem;margin-top:1rem;padding:.5rem 1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:999px;font-size:.9rem}
-.server-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.subscribe-box{background:linear-gradient(135deg,var(--bg-card),var(--bg-card-hover));border:1px solid var(--accent-dim);border-radius:12px;padding:1.25rem;margin-bottom:2rem}
-.subscribe-box h3{color:var(--accent);margin-bottom:.5rem;font-size:1rem;display:flex;align-items:center;gap:.5rem}
-.subscribe-url{display:flex;gap:.5rem;align-items:center;background:var(--bg);padding:.75rem;border-radius:8px;font-family:'Courier New',monospace;font-size:.8rem;overflow-x:auto;word-break:break-all;margin-bottom:1rem}
-.subscribe-url code{flex:1;color:var(--text)}
-.btn{background:var(--accent);color:#0a0e1a;border:none;padding:.6rem 1rem;border-radius:6px;font-weight:700;cursor:pointer;font-size:.9rem;transition:all .15s ease;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;font-family:inherit}
-.btn:hover{background:#00cc7d;transform:translateY(-1px)}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--bg-0);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+  position:relative;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* === ANIMATED BACKGROUND === */
+.bg-grid{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,255,157,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,255,157,.04) 1px,transparent 1px);
+  background-size:50px 50px;
+  mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%);
+}
+.bg-orb{position:fixed;border-radius:50%;filter:blur(80px);opacity:.5;pointer-events:none;z-index:0;animation:float 20s ease-in-out infinite}
+.bg-orb-1{width:500px;height:500px;background:radial-gradient(circle,#00ff9d 0%,transparent 70%);top:-100px;left:-100px}
+.bg-orb-2{width:600px;height:600px;background:radial-gradient(circle,#3b82f6 0%,transparent 70%);bottom:-200px;right:-150px;animation-delay:-7s}
+.bg-orb-3{width:400px;height:400px;background:radial-gradient(circle,#a855f7 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:-14s}
+@keyframes float{
+  0%,100%{transform:translate(0,0) scale(1)}
+  25%{transform:translate(50px,-50px) scale(1.1)}
+  50%{transform:translate(-30px,30px) scale(.9)}
+  75%{transform:translate(40px,40px) scale(1.05)}
+}
+
+/* === LAYOUT === */
+.container{max-width:1000px;margin:0 auto;padding:2rem 1.25rem;position:relative;z-index:1}
+header{text-align:center;margin-bottom:3rem;padding-top:2rem;animation:fadeInDown .8s ease-out}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.2)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes glow{0%,100%{box-shadow:0 0 20px var(--accent-dim),0 0 40px var(--accent-dim)}50%{box-shadow:0 0 30px var(--accent-dim),0 0 60px var(--accent-dim)}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideInRight{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+@keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1.05)}70%{transform:scale(.95)}100%{transform:scale(1)}}
+
+/* === LOGO === */
+.logo-wrap{position:relative;display:inline-block;margin-bottom:1.5rem}
+.logo{
+  font-size:5rem;
+  filter:drop-shadow(0 0 30px var(--accent-dim));
+  animation:bounceIn 1s ease-out,float-logo 4s ease-in-out 1s infinite;
+  display:inline-block;
+}
+@keyframes float-logo{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.logo-rings{position:absolute;inset:50% 50% 0 0;transform:translate(50%,-50%);pointer-events:none}
+.logo-rings::before,.logo-rings::after{
+  content:'';position:absolute;inset:-20px;border-radius:50%;
+  border:2px solid var(--accent);opacity:.3;
+}
+.logo-rings::before{animation:ping 2.5s ease-out infinite}
+.logo-rings::after{animation:ping 2.5s ease-out .8s infinite}
+@keyframes ping{0%{transform:scale(.8);opacity:.5}100%{transform:scale(2.2);opacity:0}}
+
+h1{
+  font-size:clamp(2rem,5vw,3.2rem);
+  font-weight:900;
+  margin-bottom:.5rem;
+  letter-spacing:-.02em;
+  background:linear-gradient(135deg,#00ff9d 0%,#3b82f6 50%,#a855f7 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  background-size:200% 200%;
+  animation:gradient-shift 5s ease infinite,fadeInUp .8s ease-out .1s backwards;
+}
+@keyframes gradient-shift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.subtitle{color:var(--text-dim);font-size:1.05rem;margin-bottom:1.25rem;animation:fadeInUp .8s ease-out .2s backwards}
+
+/* === BADGES === */
+.badge-row{display:flex;justify-content:center;flex-wrap:wrap;gap:.5rem;animation:fadeInUp .8s ease-out .3s backwards}
+.badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.4rem .85rem;
+  background:rgba(19,24,38,.7);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border:1px solid var(--border-light);
+  border-radius:999px;
+  font-size:.8rem;
+  font-weight:600;
+  transition:all .25s ease;
+}
+.badge:hover{transform:translateY(-2px);border-color:var(--accent);background:rgba(19,24,38,.9)}
+.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:pulse 2s infinite}
+.badge.live{background:linear-gradient(135deg,rgba(0,255,157,.1),rgba(59,130,246,.1));border-color:rgba(0,255,157,.3)}
+
+/* === STATS BAR === */
+.stats-bar{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:1rem;
+  margin:2rem 0;
+  animation:fadeInUp .8s ease-out .4s backwards;
+}
+.stat{
+  background:rgba(19,24,38,.5);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:1rem;
+  text-align:center;
+  transition:all .3s ease;
+}
+.stat:hover{transform:translateY(-3px);border-color:var(--accent-dim);box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.stat-val{font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-label{color:var(--text-dim);font-size:.7rem;margin-top:.25rem;text-transform:uppercase;letter-spacing:.5px}
+
+/* === SECTIONS === */
+.section{margin-bottom:2rem;animation:fadeInUp .8s ease-out backwards}
+.section-title{font-size:1.3rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.section-sub{color:var(--text-dim);font-size:.9rem;margin-bottom:1.25rem}
+
+/* === SUBSCRIBE BOX === */
+.subscribe-box{
+  background:linear-gradient(135deg,rgba(19,24,38,.8),rgba(26,33,56,.6));
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid var(--accent-dim);
+  border-radius:16px;
+  padding:1.5rem;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.3);
+  animation:glow 4s ease-in-out infinite;
+}
+.subscribe-box::before{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(0,255,157,.1),transparent);
+  animation:shimmer 3s linear infinite;
+}
+.subscribe-box h3{color:var(--accent);margin-bottom:.75rem;font-size:1.05rem;display:flex;align-items:center;gap:.5rem}
+.subscribe-url{
+  display:flex;gap:.5rem;align-items:center;
+  background:rgba(5,7,13,.6);
+  padding:.65rem;
+  border-radius:10px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.8rem;
+  border:1px solid var(--border);
+  margin-bottom:1rem;
+  transition:border-color .25s ease;
+}
+.subscribe-url:hover{border-color:var(--accent)}
+.subscribe-url code{flex:1;color:var(--text);padding:0 .5rem;word-break:break-all}
+
+/* === BUTTONS === */
+.btn{
+  background:var(--accent);color:#0a0e1a;border:none;
+  padding:.6rem 1.1rem;border-radius:8px;
+  font-weight:700;cursor:pointer;font-size:.85rem;
+  transition:all .2s ease;
+  display:inline-flex;align-items:center;justify-content:center;gap:.4rem;
+  font-family:inherit;white-space:nowrap;
+  position:relative;overflow:hidden;
+}
+.btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);
+  transform:translateX(-100%);
+  transition:transform .5s ease;
+}
+.btn:hover::before{transform:translateX(100%)}
+.btn:hover{background:#00cc7d;transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,255,157,.3)}
+.btn:active{transform:translateY(0)}
 .btn-secondary{background:transparent;color:var(--accent);border:1px solid var(--accent)}
-.btn-secondary:hover{background:var(--accent-dim)}
-.btn-small{padding:.4rem .75rem;font-size:.8rem}
-.app-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.75rem;margin-top:1rem}
-.app-btn{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.75rem;text-align:center;text-decoration:none;color:var(--text);transition:all .2s ease;display:flex;flex-direction:column;align-items:center;gap:.4rem}
-.app-btn:hover{border-color:var(--accent);transform:translateY(-2px)}
-.app-btn .app-icon{font-size:1.6rem}
-.app-btn .app-name{font-size:.85rem;font-weight:600}
-.config-section{margin-top:2rem}
-.config-section h2{color:var(--text);margin-bottom:1rem;font-size:1.4rem;display:flex;align-items:center;gap:.5rem}
-.config-section .section-sub{color:var(--text-dim);font-size:.9rem;margin-bottom:1.5rem}
+.btn-secondary:hover{background:var(--accent-dim);box-shadow:0 8px 20px rgba(0,255,157,.2)}
+.btn-ghost{background:rgba(19,24,38,.5);color:var(--text);border:1px solid var(--border)}
+.btn-ghost:hover{background:rgba(19,24,38,.8);border-color:var(--accent);box-shadow:none}
+.btn-small{padding:.45rem .85rem;font-size:.8rem}
+.btn-icon{padding:.5rem;border-radius:8px;min-width:36px}
+
+/* === APP BUTTONS === */
+.app-buttons{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:.6rem;
+}
+.app-btn{
+  background:rgba(5,7,13,.4);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:.85rem;
+  text-align:center;
+  text-decoration:none;
+  color:var(--text);
+  transition:all .25s ease;
+  display:flex;flex-direction:column;align-items:center;gap:.4rem;
+  position:relative;overflow:hidden;
+}
+.app-btn::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at center,var(--accent-dim) 0%,transparent 70%);
+  opacity:0;transition:opacity .3s ease;
+}
+.app-btn:hover::after{opacity:1}
+.app-btn:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,255,157,.15)}
+.app-btn .app-icon{font-size:1.8rem;position:relative;z-index:1;transition:transform .3s ease}
+.app-btn:hover .app-icon{transform:scale(1.2) rotate(-5deg)}
+.app-btn .app-name{font-size:.82rem;font-weight:600;position:relative;z-index:1}
+.app-btn .app-tag{font-size:.65rem;color:var(--text-dim);position:relative;z-index:1}
+
+/* === CONFIG CARDS === */
 .config-list{display:flex;flex-direction:column;gap:1rem}
-.config-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;transition:all .2s ease}
-.config-card:hover{background:var(--bg-card-hover);border-color:var(--accent-dim);transform:translateY(-2px)}
-.config-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;flex-wrap:wrap;gap:.5rem}
-.config-name{font-weight:700;font-size:1.05rem;display:flex;align-items:center;gap:.5rem}
-.config-protocol{background:var(--accent-dim);color:var(--accent);padding:.25rem .6rem;border-radius:6px;font-size:.7rem;font-weight:700;letter-spacing:.5px}
-.config-meta{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.75rem}
-.config-meta .tag{background:var(--bg);color:var(--text-dim);padding:.2rem .5rem;border-radius:4px;font-size:.7rem;font-family:'Courier New',monospace;border:1px solid var(--border)}
-.config-link{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.75rem;font-family:'Courier New',monospace;font-size:.72rem;color:var(--text-dim);word-break:break-all;max-height:80px;overflow-y:auto;margin-bottom:.75rem;cursor:pointer;transition:border-color .2s ease}
-.config-link:hover{border-color:var(--accent)}
-.config-actions{display:flex;gap:.5rem;flex-wrap:wrap}
-.qr-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:100;align-items:center;justify-content:center;flex-direction:column;padding:1rem}
+.config-card{
+  background:rgba(19,24,38,.6);
+  backdrop-filter:blur(15px);
+  -webkit-backdrop-filter:blur(15px);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:1.5rem;
+  transition:all .3s ease;
+  position:relative;
+  overflow:hidden;
+  animation:slideInLeft .6s ease-out backwards;
+}
+.config-card:nth-child(2){animation:slideInRight .6s ease-out .1s backwards}
+.config-card:nth-child(3){animation:slideInLeft .6s ease-out .2s backwards}
+.config-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--accent),var(--accent-2),var(--accent-3));
+  opacity:0;transition:opacity .3s ease;
+}
+.config-card:hover::before{opacity:1}
+.config-card:hover{transform:translateY(-3px);border-color:var(--accent-dim);box-shadow:0 15px 40px rgba(0,0,0,.3)}
+.config-card.featured{
+  border-color:var(--accent);
+  background:linear-gradient(135deg,rgba(0,255,157,.05),rgba(59,130,246,.05),rgba(168,85,247,.05));
+  background-size:200% 200%;
+  animation:slideInLeft .6s ease-out backwards,gradient-shift 8s ease infinite;
+}
+.config-card.featured::before{opacity:1}
+
+.config-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.85rem;flex-wrap:wrap;gap:.5rem}
+.config-name{font-weight:700;font-size:1.1rem;display:flex;align-items:center;gap:.5rem}
+.config-name .pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);animation:pulse 2s infinite}
+.config-protocols{display:flex;gap:.4rem;flex-wrap:wrap}
+.protocol-badge{
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  color:#fff;
+  padding:.25rem .65rem;
+  border-radius:6px;
+  font-size:.7rem;
+  font-weight:700;
+  letter-spacing:.5px;
+  box-shadow:0 2px 10px rgba(0,255,157,.2);
+}
+.protocol-badge.alt{background:linear-gradient(135deg,var(--accent-3),var(--accent-2))}
+
+.config-meta{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.85rem}
+.config-meta .tag{
+  background:rgba(5,7,13,.6);
+  color:var(--text-dim);
+  padding:.3rem .6rem;
+  border-radius:6px;
+  font-size:.72rem;
+  font-family:'JetBrains Mono',monospace;
+  border:1px solid var(--border);
+  display:inline-flex;align-items:center;gap:.3rem;
+  transition:all .2s ease;
+}
+.config-meta .tag:hover{color:var(--accent);border-color:var(--accent-dim)}
+.config-meta .tag .icon{font-size:.85rem}
+
+.config-stats{display:flex;gap:1rem;margin-bottom:.85rem;flex-wrap:wrap}
+.config-stat{display:flex;align-items:center;gap:.3rem;font-size:.8rem;color:var(--text-dim)}
+.config-stat .val{color:var(--accent);font-weight:700}
+
+.config-link{
+  background:rgba(5,7,13,.6);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:.65rem;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;
+  color:var(--text-dim);
+  word-break:break-all;
+  max-height:60px;
+  overflow-y:auto;
+  margin-bottom:.85rem;
+  cursor:pointer;
+  transition:all .2s ease;
+  position:relative;
+}
+.config-link::-webkit-scrollbar{width:4px}
+.config-link::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:2px}
+.config-link:hover{border-color:var(--accent);color:var(--text)}
+.config-link::after{
+  content:'👆 Click to copy';
+  position:absolute;
+  top:50%;right:8px;
+  transform:translateY(-50%);
+  background:var(--accent);color:#0a0e1a;
+  padding:.15rem .5rem;border-radius:4px;
+  font-size:.65rem;font-weight:700;
+  opacity:0;transition:opacity .2s ease;
+  pointer-events:none;
+}
+.config-link:hover::after{opacity:1}
+
+.config-actions{display:flex;gap:.4rem;flex-wrap:wrap}
+
+/* === QR MODAL === */
+.qr-modal{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.85);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  z-index:100;
+  align-items:center;justify-content:center;
+  flex-direction:column;padding:1rem;
+  animation:fadeIn .3s ease;
+}
 .qr-modal.show{display:flex}
-.qr-modal .qr-box{background:#fff;padding:1.5rem;border-radius:12px;max-width:90vw;max-height:90vh;display:flex;flex-direction:column;align-items:center;gap:1rem}
-.qr-modal canvas,.qr-modal img{background:#fff;padding:.5rem;border-radius:6px}
-.qr-modal .qr-title{color:#0a0e1a;font-weight:700;font-size:1.1rem}
-.qr-modal .qr-close{background:#0a0e1a;color:#fff;border:none;padding:.5rem 1rem;border-radius:6px;cursor:pointer;font-weight:700}
-footer{text-align:center;margin-top:3rem;padding:2rem 1rem;color:var(--text-dim);font-size:.85rem}
-footer a{color:var(--accent);text-decoration:none}
-footer a:hover{text-decoration:underline}
-.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--accent);color:#0a0e1a;padding:.75rem 1.5rem;border-radius:8px;font-weight:700;box-shadow:0 10px 30px rgba(0,255,157,.3);transition:transform .3s ease;z-index:200}
+.qr-box{
+  background:#fff;padding:1.5rem;border-radius:16px;
+  max-width:90vw;
+  display:flex;flex-direction:column;align-items:center;gap:1rem;
+  animation:bounceIn .4s ease;
+  box-shadow:0 30px 80px rgba(0,0,0,.5);
+}
+.qr-title{color:#0a0e1a;font-weight:800;font-size:1.1rem;text-align:center}
+.qr-subtitle{color:#64748b;font-size:.8rem;margin-top:-.5rem}
+.qr-box canvas{background:#fff;padding:.5rem;border-radius:8px}
+.qr-close{
+  background:#0a0e1a;color:#fff;border:none;
+  padding:.6rem 1.5rem;border-radius:8px;
+  cursor:pointer;font-weight:700;font-family:inherit;
+  transition:transform .2s ease;
+}
+.qr-close:hover{transform:scale(1.05)}
+
+/* === TOAST === */
+.toast{
+  position:fixed;bottom:2rem;left:50%;
+  transform:translateX(-50%) translateY(150px);
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  color:#fff;
+  padding:.85rem 1.5rem;
+  border-radius:12px;
+  font-weight:700;
+  box-shadow:0 15px 40px rgba(0,255,157,.4);
+  transition:transform .4s cubic-bezier(.68,-.55,.265,1.55);
+  z-index:200;
+  display:flex;align-items:center;gap:.5rem;
+}
 .toast.show{transform:translateX(-50%) translateY(0)}
-@media(max-width:600px){.logo{font-size:3rem}h1{font-size:1.6rem}.subscribe-url{flex-direction:column;align-items:stretch}.subscribe-url code{text-align:center;padding:.5rem 0}}
+
+/* === FOOTER === */
+footer{text-align:center;margin-top:3rem;padding:2rem 1rem;color:var(--text-dim);font-size:.85rem}
+footer a{color:var(--accent);text-decoration:none;transition:color .2s ease}
+footer a:hover{color:var(--accent-2)}
+.footer-stats{display:flex;justify-content:center;gap:1.5rem;margin-top:1rem;flex-wrap:wrap}
+.footer-stat{font-size:.75rem;display:flex;align-items:center;gap:.3rem}
+.footer-stat .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+
+/* === RESPONSIVE === */
+@media(max-width:600px){
+  .logo{font-size:3.5rem}
+  h1{font-size:2rem}
+  .container{padding:1rem .75rem}
+  .subscribe-url{flex-direction:column;align-items:stretch}
+  .subscribe-url code{text-align:center;padding:.5rem 0;margin-bottom:.5rem}
+  .btn{width:100%;justify-content:center}
+  .config-actions .btn{flex:1;min-width:0}
+  .app-btn{padding:.7rem}
+}
 </style>
 </head>
 <body>
+
+<div class="bg-grid"></div>
+<div class="bg-orb bg-orb-1"></div>
+<div class="bg-orb bg-orb-2"></div>
+<div class="bg-orb bg-orb-3"></div>
+
 <div class="container">
+
   <header>
-    <div class="logo">🛡️</div>
+    <div class="logo-wrap">
+      <span class="logo">🛡️</span>
+      <span class="logo-rings"></span>
+    </div>
     <h1>Warden VPN</h1>
-    <p class="subtitle">Secure • Fast • Reliable</p>
-    <div class="server-badge">
-      <span>Germany Server</span>
-      <span class="dot"></span>
+    <p class="subtitle">Premium VPN • Ultra-Fast • Unlimited Bandwidth</p>
+    <div class="badge-row">
+      <span class="badge live"><span class="dot"></span> Live & Online</span>
+      <span class="badge">🇩🇪 Germany</span>
+      <span class="badge">⚡ Low Latency</span>
+      <span class="badge">🔒 End-to-End Encrypted</span>
     </div>
   </header>
 
-  <div class="subscribe-box">
-    <h3>📲 Subscription URL (Auto-Import)</h3>
-    <div class="subscribe-url">
-      <code id="subUrl">https://cdn.daraflo.ir:2096/sub/sub_f487ed87-b45c-4cc4-017a-d10f80a7af95</code>
-      <button class="btn btn-small" onclick="copyText('subUrl', this)">📋 Copy</button>
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-val">2</div>
+      <div class="stat-label">Active Servers</div>
     </div>
-    <p style="color:var(--text-dim);font-size:.85rem;margin-bottom:1rem">Import this URL in v2rayNG, Hiddify, V2Box, or NekoBox to auto-import all configs.</p>
-    <div class="app-buttons">
-      <a class="app-btn" href="v2rayng://install-config?url=https%3A%2F%2Fcdn.daraflo.ir%3A2096%2Fsub%2Fsub_f487ed87-b45c-4cc4-017a-d10f80a7af95">
-        <span class="app-icon">📱</span>
-        <span class="app-name">v2rayNG</span>
-      </a>
-      <a class="app-btn" href="clash://install-config?url=https%3A%2F%2Fcdn.daraflo.ir%3A2096%2Fsub%2Fsub_f487ed87-b45c-4cc4-017a-d10f80a7af95">
-        <span class="app-icon">🚀</span>
-        <span class="app-name">Hiddify</span>
-      </a>
-      <a class="app-btn" href="https://apps.apple.com/app/v2box-v2ray-client/id6446448075">
-        <span class="app-icon">🍎</span>
-        <span class="app-name">V2Box</span>
-      </a>
-      <a class="app-btn" href="https://github.com/2dust/v2rayN/releases">
-        <span class="app-icon">💻</span>
-        <span class="app-name">v2rayN</span>
-      </a>
+    <div class="stat">
+      <div class="stat-val">99.9%</div>
+      <div class="stat-label">Uptime</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">∞</div>
+      <div class="stat-label">Bandwidth</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">&lt;50ms</div>
+      <div class="stat-label">Ping</div>
     </div>
   </div>
 
-  <div class="config-section">
-    <h2>📡 Available Configs</h2>
-    <p class="section-sub">Click any link to copy. For best experience, use the subscription URL above.</p>
+  <div class="section">
+    <h2 class="section-title">📲 One-Click Import</h2>
+    <p class="section-sub">Add all configs to your VPN app with a single tap</p>
+
+    <div class="subscribe-box">
+      <h3>🔗 Subscription URL</h3>
+      <div class="subscribe-url">
+        <code id="subUrl">https://cdn.daraflo.ir:2096/sub/sub_f487ed87-b45c-4cc4-017a-d10f80a7af95</code>
+        <button class="btn btn-small" onclick="copyText('subUrl', this)">📋 Copy</button>
+      </div>
+
+      <div class="app-buttons">
+        <a class="app-btn" href="v2rayng://install-config?url=https%3A%2F%2Fcdn.daraflo.ir%3A2096%2Fsub%2Fsub_f487ed87-b45c-4cc4-017a-d10f80a7af95">
+          <span class="app-icon">📱</span>
+          <span class="app-name">v2rayNG</span>
+          <span class="app-tag">Android</span>
+        </a>
+        <a class="app-btn" href="clash://install-config?url=https%3A%2F%2Fcdn.daraflo.ir%3A2096%2Fsub%2Fsub_f487ed87-b45c-4cc4-017a-d10f80a7af95">
+          <span class="app-icon">🚀</span>
+          <span class="app-name">Hiddify</span>
+          <span class="app-tag">Multi-Platform</span>
+        </a>
+        <a class="app-btn" href="https://apps.apple.com/app/v2box-v2ray-client/id6446448075">
+          <span class="app-icon">🍎</span>
+          <span class="app-name">V2Box</span>
+          <span class="app-tag">iOS / Mac</span>
+        </a>
+        <a class="app-btn" href="https://github.com/2dust/v2rayN/releases">
+          <span class="app-icon">💻</span>
+          <span class="app-name">v2rayN</span>
+          <span class="app-tag">Windows</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">📡 Available Configurations</h2>
+    <p class="section-sub">Click any config to copy. For best experience, use the subscription URL above.</p>
+
     <div class="config-list">
 
-      <div class="config-card">
+      <div class="config-card featured">
         <div class="config-header">
-          <span class="config-name">⏩ BetForward-5.00GB-23H</span>
-          <span class="config-protocol">VLESS</span>
+          <span class="config-name">
+            <span class="pulse-dot"></span>
+            ⏩ BetForward
+            <span class="protocol-badge">⭐ FEATURED</span>
+          </span>
+          <div class="config-protocols">
+            <span class="protocol-badge">VLESS</span>
+          </div>
         </div>
         <div class="config-meta">
-          <span class="tag">🌐 snapp.ir:2087</span>
-          <span class="tag">🔒 TLS</span>
-          <span class="tag">🛰️ WebSocket</span>
-          <span class="tag">🇩🇪 Germany</span>
+          <span class="tag"><span class="icon">🌐</span> snapp.ir:2087</span>
+          <span class="tag"><span class="icon">🔒</span> TLS 1.3</span>
+          <span class="tag"><span class="icon">🛰️</span> WebSocket</span>
+          <span class="tag"><span class="icon">🇩🇪</span> Germany</span>
+          <span class="tag"><span class="icon">📊</span> 5.00 GB</span>
+          <span class="tag"><span class="icon">⏱️</span> 23H Valid</span>
+        </div>
+        <div class="config-stats">
+          <span class="config-stat">📶 Ping: <span class="val">~45ms</span></span>
+          <span class="config-stat">🚀 Speed: <span class="val">Ultra</span></span>
+          <span class="config-stat">🛡️ Status: <span class="val">Active</span></span>
         </div>
         <div class="config-link" onclick="copyConfig(0, this)">vless://f487ed87-b45c-4cc4-017a-d10f80a7af95@snapp.ir:2087?alpn=h2%2Chttp%2F1.1%2Ch3&encryption=none&fp=chrome&host=cdn.daraflo.ir&path=%2FBetForward&security=tls&sni=cdn.daraflo.ir&type=ws#%E2%8F%A9%EF%B8%8FBetForward-5.00GB%F0%9F%93%8A-23H%E2%8F%B3</div>
         <div class="config-actions">
-          <button class="btn btn-small" onclick="copyConfig(0, this)">📋 Copy Link</button>
-          <button class="btn btn-small btn-secondary" onclick="showQR(0)">📷 QR Code</button>
-          <button class="btn btn-small btn-secondary" onclick="openInApp(0)">🚀 Open in App</button>
+          <button class="btn btn-small" onclick="copyConfig(0, this)">📋 Copy</button>
+          <button class="btn btn-small btn-secondary" onclick="showQR(0)">📷 QR</button>
+          <button class="btn btn-small btn-ghost" onclick="openInApp(0)">🚀 Open</button>
         </div>
       </div>
 
       <div class="config-card">
         <div class="config-header">
-          <span class="config-name">⏩ BetForward-5.00GB-23H</span>
-          <span class="config-protocol">VLESS</span>
+          <span class="config-name">
+            <span class="pulse-dot"></span>
+            ⏩ BetForward (Backup)
+          </span>
+          <div class="config-protocols">
+            <span class="protocol-badge alt">VLESS</span>
+          </div>
         </div>
         <div class="config-meta">
-          <span class="tag">🌐 snapp.ir:2087</span>
-          <span class="tag">🔒 TLS</span>
-          <span class="tag">🛰️ WebSocket</span>
-          <span class="tag">🇩🇪 Germany</span>
+          <span class="tag"><span class="icon">🌐</span> snapp.ir:2087</span>
+          <span class="tag"><span class="icon">🔒</span> TLS 1.3</span>
+          <span class="tag"><span class="icon">🛰️</span> WebSocket</span>
+          <span class="tag"><span class="icon">🇩🇪</span> Germany</span>
         </div>
         <div class="config-link" onclick="copyConfig(1, this)">vless://f487ed87-b45c-4cc4-017a-d10f80a7af95@snapp.ir:2087?alpn=h2%2Chttp%2F1.1%2Ch3&encryption=none&fp=chrome&host=cdn.daraflo.ir&path=%2FBetForward&security=tls&sni=cdn.daraflo.ir&type=ws#%E2%8F%A9%EF%B8%8FBetForward-5.00GB%F0%9F%93%8A-23H%E2%8F%B3</div>
         <div class="config-actions">
-          <button class="btn btn-small" onclick="copyConfig(1, this)">📋 Copy Link</button>
-          <button class="btn btn-small btn-secondary" onclick="showQR(1)">📷 QR Code</button>
-          <button class="btn btn-small btn-secondary" onclick="openInApp(1)">🚀 Open in App</button>
+          <button class="btn btn-small" onclick="copyConfig(1, this)">📋 Copy</button>
+          <button class="btn btn-small btn-secondary" onclick="showQR(1)">📷 QR</button>
+          <button class="btn btn-small btn-ghost" onclick="openInApp(1)">🚀 Open</button>
         </div>
       </div>
 
-      <div class="config-card" style="border-style:dashed">
-        <div class="config-header">
+      <div class="config-card" style="border-style:dashed;text-align:center;background:rgba(19,24,38,.3)">
+        <div class="config-header" style="justify-content:center">
           <span class="config-name">➕ Add More Configs</span>
-          <span class="config-protocol">CUSTOM</span>
         </div>
-        <p style="color:var(--text-dim);font-size:.85rem;margin-bottom:.5rem">Have other configs? Send them to me and I'll add them to this panel.</p>
-        <p style="color:var(--text-dim);font-size:.8rem">Current: 2 configs (both identical — let me know if you have more unique ones)</p>
+        <p style="color:var(--text-dim);font-size:.85rem;margin:.5rem 0">Have additional configs (different servers, protocols, locations)?<br>Send them to me and I'll add them to this panel.</p>
+        <div style="margin-top:1rem">
+          <span class="protocol-badge alt">📩 Custom</span>
+        </div>
       </div>
 
     </div>
   </div>
 
   <footer>
-    <p>🛡️ <strong>Warden VPN</strong> — Powered by GitHub Pages</p>
-    <p style="margin-top:.5rem">Subscription: <a href="https://cdn.daraflo.ir:2096" target="_blank">cdn.daraflo.ir</a></p>
+    <p>🛡️ <strong>Warden VPN</strong> — Premium Privacy & Freedom</p>
+    <p style="margin-top:.5rem">Powered by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a> • Subscription via <a href="https://cdn.daraflo.ir" target="_blank">daraflo</a></p>
+    <div class="footer-stats">
+      <span class="footer-stat"><span class="dot"></span> All systems operational</span>
+      <span class="footer-stat">⚡ Updated: Today</span>
+    </div>
   </footer>
+
 </div>
 
 <div class="qr-modal" id="qrModal" onclick="if(event.target===this)closeQR()">
   <div class="qr-box">
     <div class="qr-title" id="qrTitle">Config QR Code</div>
+    <div class="qr-subtitle">Scan with your VPN app</div>
     <div id="qrContainer"></div>
-    <button class="qr-close" onclick="closeQR()">Close</button>
+    <button class="qr-close" onclick="closeQR()">✕ Close</button>
   </div>
 </div>
 
-<div class="toast" id="toast">✅ Copied!</div>
+<div class="toast" id="toast">✅ Copied to clipboard!</div>
 
 <script>
 const configs = [
   "vless://f487ed87-b45c-4cc4-017a-d10f80a7af95@snapp.ir:2087?alpn=h2%2Chttp%2F1.1%2Ch3&encryption=none&fp=chrome&host=cdn.daraflo.ir&path=%2FBetForward&security=tls&sni=cdn.daraflo.ir&type=ws#%E2%8F%A9%EF%B8%8FBetForward-5.00GB%F0%9F%93%8A-23H%E2%8F%B3",
   "vless://f487ed87-b45c-4cc4-017a-d10f80a7af95@snapp.ir:2087?alpn=h2%2Chttp%2F1.1%2Ch3&encryption=none&fp=chrome&host=cdn.daraflo.ir&path=%2FBetForward&security=tls&sni=cdn.daraflo.ir&type=ws#%E2%8F%A9%EF%B8%8FBetForward-5.00GB%F0%9F%93%8A-23H%E2%8F%B3"
 ];
-const names = ["⏩ BetForward-5.00GB-23H", "⏩ BetForward-5.00GB-23H (2)"];
+const names = ["⏩ BetForward - Featured", "⏩ BetForward - Backup"];
 
 function copyText(elementId, btn) {
   const el = document.getElementById(elementId);
   const text = el.innerText || el.textContent;
-  navigator.clipboard.writeText(text).then(() => showToast(btn, '✅ Copied!'));
+  navigator.clipboard.writeText(text).then(() => showToast(btn, '✅ Copied URL!'));
 }
 
 function copyConfig(idx, btn) {
-  navigator.clipboard.writeText(configs[idx]).then(() => showToast(btn, '✅ Copied!'));
+  navigator.clipboard.writeText(configs[idx]).then(() => showToast(btn, '✅ Config copied!'));
 }
 
 function showToast(btn, msg) {
   const toast = document.getElementById('toast');
-  toast.innerText = msg;
+  toast.innerHTML = msg;
   toast.classList.add('show');
-  const orig = btn ? btn.innerText : '';
+  const orig = btn ? btn.innerHTML : '';
   if (btn) {
-    btn.innerText = msg;
-    setTimeout(() => { btn.innerText = orig; }, 1500);
+    btn.innerHTML = msg;
+    setTimeout(() => { btn.innerHTML = orig; }, 1500);
   }
-  setTimeout(() => toast.classList.remove('show'), 2000);
+  clearTimeout(window._toastT);
+  window._toastT = setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
 function openInApp(idx) {
@@ -209,12 +623,12 @@ function showQR(idx) {
   title.innerText = names[idx];
   container.innerHTML = '<canvas id="qrCanvas"></canvas>';
   modal.classList.add('show');
-  
-  // Load QR library
+
   if (typeof QRCode === 'undefined') {
     const script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js';
     script.onload = () => generateQR(configs[idx]);
+    script.onerror = () => { container.innerHTML = '<p style="color:#ef4444">Failed to load QR library</p>'; };
     document.head.appendChild(script);
   } else {
     generateQR(configs[idx]);
@@ -222,7 +636,7 @@ function showQR(idx) {
 }
 
 function generateQR(text) {
-  QRCode.toCanvas(document.getElementById('qrCanvas'), text, {width: 280, margin: 1}, err => {
+  QRCode.toCanvas(document.getElementById('qrCanvas'), text, {width: 280, margin: 1, color: {dark: '#0a0e1a', light: '#fff'}}, err => {
     if (err) document.getElementById('qrContainer').innerHTML = 'Error: ' + err;
   });
 }
@@ -230,6 +644,21 @@ function generateQR(text) {
 function closeQR() {
   document.getElementById('qrModal').classList.remove('show');
 }
+
+// Keyboard shortcuts
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeQR();
+});
+
+// Parallax on mouse move (subtle)
+document.addEventListener('mousemove', e => {
+  const x = (e.clientX / window.innerWidth - 0.5) * 20;
+  const y = (e.clientY / window.innerHeight - 0.5) * 20;
+  document.querySelectorAll('.bg-orb').forEach((orb, i) => {
+    const speed = (i + 1) * 0.3;
+    orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+  });
+});
 </script>
 </body>
 </html>
