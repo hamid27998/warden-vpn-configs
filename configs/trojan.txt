@@ -1,0 +1,2 @@
+# Trojan — Germany 🇩🇪
+trojan://YOUR-PASSWORD-HERE@germany.warden-vpn.example.com:443?sni=germany.warden-vpn.example.com&type=tcp&security=tls#Warden-Germany-Trojan

@@ -1,0 +1,6 @@
+# All Warden VPN configs (Germany 🇩🇪)
+vless://YOUR-UUID-HERE@germany.warden-vpn.example.com:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.google.com&fp=chrome&pbk=YOUR-PUBLIC-KEY&sid=YOUR-SHORT-ID&type=tcp#Warden-Germany-VLESS-Reality
+vless://YOUR-UUID-HERE@germany.warden-vpn.example.com:443?encryption=none&security=tls&sni=germany.warden-vpn.example.com&type=ws&host=germany.warden-vpn.example.com&path=%2Fwarden#Warden-Germany-VLESS-WS
+vmess://eyJ2IjoiMiIsInBzIjoiV2FyZGVuLUdlcm1hbnktVk1lc3MtV1MiLCJhZGQiOiJnZXJtYW55LndhcmRlbi12cG4uZXhhbXBsZS5jb20iLCJwb3J0IjoiNDQzIiwiaWQiOiJZT1VSLVVVSUQtSEVSRSIsImFpZCI6IjAiLCJzY3kiOiJhdXRvIiwibmV0Ijoid3MiLCJ0eXBlIjoibm9uZSIsImhvc3QiOiJnZXJtYW55LndhcmRlbi12cG4uZXhhbXBsZS5jb20iLCJwYXRoIjoiL3dhcmRlbiIsInRscyI6InRscyJ9
+trojan://YOUR-PASSWORD-HERE@germany.warden-vpn.example.com:443?sni=germany.warden-vpn.example.com&type=tcp&security=tls#Warden-Germany-Trojan
+ss://YWVzLTI1Ni1nY206WU9VUi1QQVNTV09SRC1IRVJFQGdlcm1hbnkud2FyZGVuLXZwbi5leGFtcGxlLmNvbTo4Mzg4#Warden-Germany-Shadowsocks

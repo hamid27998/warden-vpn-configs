@@ -1,0 +1,2 @@
+# VLESS + WebSocket + TLS — Germany 🇩🇪
+vless://YOUR-UUID-HERE@germany.warden-vpn.example.com:443?encryption=none&security=tls&sni=germany.warden-vpn.example.com&type=ws&host=germany.warden-vpn.example.com&path=%2Fwarden#Warden-Germany-VLESS-WS

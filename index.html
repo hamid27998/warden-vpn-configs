@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Warden VPN - Germany</title>
+<style>
+:root{--bg:#0a0e1a;--bg-card:#131826;--bg-card-hover:#1a2138;--border:#1f2937;--accent:#00ff9d;--accent-dim:#00ff9d33;--text:#e5e7eb;--text-dim:#9ca3af}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;background-image:radial-gradient(circle at 20% 10%,rgba(0,255,157,.08) 0,transparent 40%),radial-gradient(circle at 80% 80%,rgba(59,130,246,.06) 0,transparent 40%)}
+.container{max-width:900px;margin:0 auto;padding:2rem 1rem}
+header{text-align:center;margin-bottom:3rem;padding-top:1rem}
+.logo{font-size:4rem;margin-bottom:.5rem;filter:drop-shadow(0 0 20px var(--accent-dim))}
+h1{font-size:2.2rem;font-weight:800;margin-bottom:.5rem;background:linear-gradient(135deg,var(--accent),#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{color:var(--text-dim);font-size:1rem}
+.server-badge{display:inline-flex;align-items:center;gap:.5rem;margin-top:1rem;padding:.5rem 1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:999px;font-size:.9rem}
+.server-badge .flag{font-size:1.2rem}
+.server-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.subscribe-box{background:linear-gradient(135deg,var(--bg-card),var(--bg-card-hover));border:1px solid var(--accent-dim);border-radius:12px;padding:1.25rem;margin-bottom:2rem}
+.subscribe-box h3{color:var(--accent);margin-bottom:.5rem;font-size:1rem}
+.subscribe-url{display:flex;gap:.5rem;align-items:center;background:var(--bg);padding:.75rem;border-radius:8px;font-family:'Courier New',monospace;font-size:.85rem;overflow-x:auto;word-break:break-all}
+.subscribe-url code{flex:1;color:var(--text)}
+.config-grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.config-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;transition:all .2s ease;display:flex;flex-direction:column}
+.config-card:hover{background:var(--bg-card-hover);border-color:var(--accent-dim);transform:translateY(-2px)}
+.config-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
+.config-name{font-weight:700;font-size:1.1rem}
+.config-icon{font-size:1.5rem}
+.config-desc{color:var(--text-dim);font-size:.85rem;margin-bottom:1rem;flex:1}
+.config-link{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.5rem;font-family:'Courier New',monospace;font-size:.75rem;color:var(--text-dim);word-break:break-all;max-height:60px;overflow:hidden;margin-bottom:.75rem}
+.btn{background:var(--accent);color:#0a0e1a;border:none;padding:.6rem 1rem;border-radius:6px;font-weight:700;cursor:pointer;font-size:.9rem;transition:all .15s ease;display:flex;align-items:center;justify-content:center;gap:.4rem}
+.btn:hover{background:#00cc7d;transform:scale(1.02)}
+.btn:active{transform:scale(.98)}
+.btn.copied{background:#3b82f6;color:#fff}
+.footer{text-align:center;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);color:var(--text-dim);font-size:.85rem}
+.footer a{color:var(--accent);text-decoration:none}
+@media (max-width:600px){h1{font-size:1.6rem}.logo{font-size:3rem}.config-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<div class="logo">🛡️</div>
+<h1>Warden VPN</h1>
+<p class="subtitle">Personal Config Panel</p>
+<div class="server-badge"><span class="flag">🇩🇪</span><span>Germany</span><span class="dot"></span><span style="color:var(--accent)">Online</span></div>
+</header>
+<div class="subscribe-box">
+<h3>📲 Subscribe URL — Auto-import all configs</h3>
+<p style="color:var(--text-dim);font-size:.85rem;margin-bottom:.75rem">Copy this URL and add it in your VPN app (v2rayNG / Hiddify / V2Box)</p>
+<div class="subscribe-url">
+<code id="subUrl">https://hamid27998.github.io/warden-vpn-configs/subscription.txt</code>
+<button class="btn" onclick="copyText('subUrl', this)">📋 Copy</button>
+</div>
+</div>
+<div class="config-grid" id="grid"></div>
+<div class="footer">
+<p>Built with ❤️ · <a href="https://github.com/hamid27998/warden-vpn-configs" target="_blank">Source on GitHub</a></p>
+<p style="margin-top:.5rem;font-size:.75rem">⚠️ Template — replace sample configs with your real server details</p>
+</div>
+</div>
+<script>
+const CONFIGS=[
+{name:'VLESS + Reality',icon:'🏆',desc:'Best for Iran. Undetectable, ultra-fast.',file:'configs/vless-reality.txt',app:'v2rayNG · Hiddify · V2Box'},
+{name:'VLESS + WS + TLS',icon:'🌐',desc:'CDN-friendly, bypasses DPI easily.',file:'configs/vless-ws.txt',app:'v2rayNG · Hiddify · v2rayN'},
+{name:'VMess + WS',icon:'⚡',desc:'Classic, widely supported.',file:'configs/vmess-ws.txt',app:'v2rayNG · v2rayN · Hiddify'},
+{name:'Trojan',icon:'🐴',desc:'Fast, simple, TLS-based.',file:'configs/trojan.txt',app:'v2rayNG · Hiddify · Streisand'},
+{name:'Shadowsocks',icon:'✈️',desc:'Lightweight, fast.',file:'configs/shadowsocks.txt',app:'Outline · v2rayNG'},
+{name:'WireGuard',icon:'🔒',desc:'Modern, ultra-fast kernel-level VPN.',file:'configs/wireguard.conf',app:'WireGuard (all platforms)'}
+];
+async function loadConfig(file){try{const r=await fetch(file);if(!r.ok)return null;const t=await r.text();const l=t.split('\n').find(x=>x.trim()&&!x.trim().startsWith('#'));return l?l.trim():null}catch(e){return null}}
+function copyText(id,btn){const t=id==='subUrl'?document.getElementById(id).textContent:btn.dataset.config;navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='✅ Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent=o;btn.classList.remove('copied')},1500)})}
+async function render(){const g=document.getElementById('grid');for(const c of CONFIGS){const cfg=await loadConfig(c.file);const card=document.createElement('div');card.className='config-card';const safe=(cfg||'').replace(/"/g,'&quot;');card.innerHTML=`<div class="config-header"><span class="config-name">${c.name}</span><span class="config-icon">${c.icon}</span></div><p class="config-desc">${c.desc}<br><small style="color:var(--text-dim)">📱 ${c.app}</small></p><div class="config-link">${cfg?cfg.substring(0,80)+'…':'⚠️ Not configured yet'}</div><button class="btn" data-config="${safe}" onclick="copyText(null,this)" ${cfg?'':'disabled style="opacity:.5;cursor:not-allowed"'}>📋 Copy config</button>`;g.appendChild(card)}}
+render();
+</script>
+</body>
+</html>
