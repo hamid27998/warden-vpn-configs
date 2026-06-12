@@ -14,17 +14,17 @@ header{text-align:center;margin-bottom:3rem;padding-top:1rem}
 h1{font-size:2.2rem;font-weight:800;margin-bottom:.5rem;background:linear-gradient(135deg,var(--accent),#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .subtitle{color:var(--text-dim);font-size:1rem}
 .server-badge{display:inline-flex;align-items:center;gap:.5rem;margin-top:1rem;padding:.5rem 1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:999px;font-size:.9rem}
-.server-badge .flag{font-size:1.2rem}
 .server-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .subscribe-box{background:linear-gradient(135deg,var(--bg-card),var(--bg-card-hover));border:1px solid var(--accent-dim);border-radius:12px;padding:1.25rem;margin-bottom:2rem}
-.subscribe-box h3{color:var(--accent);margin-bottom:.5rem;font-size:1rem}
-.subscribe-url{display:flex;gap:.5rem;align-items:center;background:var(--bg);padding:.75rem;border-radius:8px;font-family:'Courier New',monospace;font-size:.85rem;overflow-x:auto;word-break:break-all}
+.subscribe-box h3{color:var(--accent);margin-bottom:.5rem;font-size:1rem;display:flex;align-items:center;gap:.5rem}
+.subscribe-url{display:flex;gap:.5rem;align-items:center;background:var(--bg);padding:.75rem;border-radius:8px;font-family:'Courier New',monospace;font-size:.8rem;overflow-x:auto;word-break:break-all;margin-bottom:1rem}
 .subscribe-url code{flex:1;color:var(--text)}
-.btn{background:var(--accent);color:#0a0e1a;border:none;padding:.6rem 1rem;border-radius:6px;font-weight:700;cursor:pointer;font-size:.9rem;transition:all .15s ease;display:flex;align-items:center;justify-content:center;gap:.4rem}
+.btn{background:var(--accent);color:#0a0e1a;border:none;padding:.6rem 1rem;border-radius:6px;font-weight:700;cursor:pointer;font-size:.9rem;transition:all .15s ease;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;font-family:inherit}
 .btn:hover{background:#00cc7d;transform:translateY(-1px)}
 .btn-secondary{background:transparent;color:var(--accent);border:1px solid var(--accent)}
 .btn-secondary:hover{background:var(--accent-dim)}
+.btn-small{padding:.4rem .75rem;font-size:.8rem}
 .app-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.75rem;margin-top:1rem}
 .app-btn{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.75rem;text-align:center;text-decoration:none;color:var(--text);transition:all .2s ease;display:flex;flex-direction:column;align-items:center;gap:.4rem}
 .app-btn:hover{border-color:var(--accent);transform:translateY(-2px)}
@@ -32,20 +32,30 @@ h1{font-size:2.2rem;font-weight:800;margin-bottom:.5rem;background:linear-gradie
 .app-btn .app-name{font-size:.85rem;font-weight:600}
 .config-section{margin-top:2rem}
 .config-section h2{color:var(--text);margin-bottom:1rem;font-size:1.4rem;display:flex;align-items:center;gap:.5rem}
+.config-section .section-sub{color:var(--text-dim);font-size:.9rem;margin-bottom:1.5rem}
 .config-list{display:flex;flex-direction:column;gap:1rem}
 .config-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;transition:all .2s ease}
 .config-card:hover{background:var(--bg-card-hover);border-color:var(--accent-dim);transform:translateY(-2px)}
-.config-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
-.config-name{font-weight:700;font-size:1.1rem}
-.config-protocol{background:var(--accent-dim);color:var(--accent);padding:.25rem .6rem;border-radius:6px;font-size:.7rem;font-weight:700}
-.config-desc{color:var(--text-dim);font-size:.85rem;margin-bottom:1rem}
-.config-link{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.75rem;font-family:'Courier New',monospace;font-size:.75rem;color:var(--text-dim);word-break:break-all;max-height:80px;overflow-y:auto;margin-bottom:.75rem;cursor:pointer;transition:border-color .2s ease}
+.config-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;flex-wrap:wrap;gap:.5rem}
+.config-name{font-weight:700;font-size:1.05rem;display:flex;align-items:center;gap:.5rem}
+.config-protocol{background:var(--accent-dim);color:var(--accent);padding:.25rem .6rem;border-radius:6px;font-size:.7rem;font-weight:700;letter-spacing:.5px}
+.config-meta{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.75rem}
+.config-meta .tag{background:var(--bg);color:var(--text-dim);padding:.2rem .5rem;border-radius:4px;font-size:.7rem;font-family:'Courier New',monospace;border:1px solid var(--border)}
+.config-link{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.75rem;font-family:'Courier New',monospace;font-size:.72rem;color:var(--text-dim);word-break:break-all;max-height:80px;overflow-y:auto;margin-bottom:.75rem;cursor:pointer;transition:border-color .2s ease}
 .config-link:hover{border-color:var(--accent)}
 .config-actions{display:flex;gap:.5rem;flex-wrap:wrap}
+.qr-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:100;align-items:center;justify-content:center;flex-direction:column;padding:1rem}
+.qr-modal.show{display:flex}
+.qr-modal .qr-box{background:#fff;padding:1.5rem;border-radius:12px;max-width:90vw;max-height:90vh;display:flex;flex-direction:column;align-items:center;gap:1rem}
+.qr-modal canvas,.qr-modal img{background:#fff;padding:.5rem;border-radius:6px}
+.qr-modal .qr-title{color:#0a0e1a;font-weight:700;font-size:1.1rem}
+.qr-modal .qr-close{background:#0a0e1a;color:#fff;border:none;padding:.5rem 1rem;border-radius:6px;cursor:pointer;font-weight:700}
 footer{text-align:center;margin-top:3rem;padding:2rem 1rem;color:var(--text-dim);font-size:.85rem}
 footer a{color:var(--accent);text-decoration:none}
 footer a:hover{text-decoration:underline}
-@media(max-width:600px){.logo{font-size:3rem}h1{font-size:1.6rem}}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--accent);color:#0a0e1a;padding:.75rem 1.5rem;border-radius:8px;font-weight:700;box-shadow:0 10px 30px rgba(0,255,157,.3);transition:transform .3s ease;z-index:200}
+.toast.show{transform:translateX(-50%) translateY(0)}
+@media(max-width:600px){.logo{font-size:3rem}h1{font-size:1.6rem}.subscribe-url{flex-direction:column;align-items:stretch}.subscribe-url code{text-align:center;padding:.5rem 0}}
 </style>
 </head>
 <body>
@@ -55,98 +65,170 @@ footer a:hover{text-decoration:underline}
     <h1>Warden VPN</h1>
     <p class="subtitle">Secure • Fast • Reliable</p>
     <div class="server-badge">
-      <span class="flag">🇩🇪</span>
       <span>Germany Server</span>
       <span class="dot"></span>
     </div>
   </header>
 
   <div class="subscribe-box">
-    <h3>📲 Subscription URL (auto-import)</h3>
+    <h3>📲 Subscription URL (Auto-Import)</h3>
     <div class="subscribe-url">
-      <code id="subUrl">https://mahour-music.ir:2053/sub/djMsOTY2OCwxNzgwNjczNjg44d70fb012</code>
-      <button class="btn" onclick="copyText('subUrl', this)">📋 Copy</button>
+      <code id="subUrl">https://cdn.daraflo.ir:2096/sub/sub_f487ed87-b45c-4cc4-017a-d10f80a7af95</code>
+      <button class="btn btn-small" onclick="copyText('subUrl', this)">📋 Copy</button>
     </div>
-    <p style="color:var(--text-dim);font-size:.85rem;margin-top:.75rem">Paste this URL into v2rayNG, Hiddify, V2Box, or NekoBox to auto-import all configs.</p>
+    <p style="color:var(--text-dim);font-size:.85rem;margin-bottom:1rem">Import this URL in v2rayNG, Hiddify, V2Box, or NekoBox to auto-import all configs.</p>
     <div class="app-buttons">
-      <a class="app-btn" href="https://play.google.com/store/apps/details?id=com.v2ray.ang" target="_blank">
+      <a class="app-btn" href="v2rayng://install-config?url=https%3A%2F%2Fcdn.daraflo.ir%3A2096%2Fsub%2Fsub_f487ed87-b45c-4cc4-017a-d10f80a7af95">
         <span class="app-icon">📱</span>
-        <span class="app-name">v2rayNG (Android)</span>
+        <span class="app-name">v2rayNG</span>
       </a>
-      <a class="app-btn" href="https://github.com/taamarin/Hiddify/releases" target="_blank">
+      <a class="app-btn" href="clash://install-config?url=https%3A%2F%2Fcdn.daraflo.ir%3A2096%2Fsub%2Fsub_f487ed87-b45c-4cc4-017a-d10f80a7af95">
         <span class="app-icon">🚀</span>
         <span class="app-name">Hiddify</span>
       </a>
-      <a class="app-btn" href="https://apps.apple.com/app/v2box-v2ray-client/id6446448075" target="_blank">
+      <a class="app-btn" href="https://apps.apple.com/app/v2box-v2ray-client/id6446448075">
         <span class="app-icon">🍎</span>
-        <span class="app-name">V2Box (iOS)</span>
+        <span class="app-name">V2Box</span>
       </a>
-      <a class="app-btn" href="https://github.com/2dust/v2rayN/releases" target="_blank">
+      <a class="app-btn" href="https://github.com/2dust/v2rayN/releases">
         <span class="app-icon">💻</span>
-        <span class="app-name">v2rayN (Windows)</span>
+        <span class="app-name">v2rayN</span>
       </a>
     </div>
   </div>
 
   <div class="config-section">
-    <h2>📡 Available Configs (Live)</h2>
-    <p style="color:var(--text-dim);font-size:.9rem;margin-bottom:1.5rem">Click any link to copy. For best experience, use the subscription URL above.</p>
+    <h2>📡 Available Configs</h2>
+    <p class="section-sub">Click any link to copy. For best experience, use the subscription URL above.</p>
     <div class="config-list">
-      <div class="config-card" style="border-color:var(--accent)">
+
+      <div class="config-card">
         <div class="config-header">
-          <span class="config-name">🔗 Subscription Link</span>
-          <span class="config-protocol">AUTO-IMPORT</span>
+          <span class="config-name">⏩ BetForward-5.00GB-23H</span>
+          <span class="config-protocol">VLESS</span>
         </div>
-        <p class="config-desc">All configs in one URL — import this into your app</p>
-        <div class="config-link" onclick="copyText('subUrl2', this)" id="subUrl2">https://mahour-music.ir:2053/sub/djMsOTY2OCwxNzgwNjczNjg44d70fb012</div>
+        <div class="config-meta">
+          <span class="tag">🌐 snapp.ir:2087</span>
+          <span class="tag">🔒 TLS</span>
+          <span class="tag">🛰️ WebSocket</span>
+          <span class="tag">🇩🇪 Germany</span>
+        </div>
+        <div class="config-link" onclick="copyConfig(0, this)">vless://f487ed87-b45c-4cc4-017a-d10f80a7af95@snapp.ir:2087?alpn=h2%2Chttp%2F1.1%2Ch3&encryption=none&fp=chrome&host=cdn.daraflo.ir&path=%2FBetForward&security=tls&sni=cdn.daraflo.ir&type=ws#%E2%8F%A9%EF%B8%8FBetForward-5.00GB%F0%9F%93%8A-23H%E2%8F%B3</div>
         <div class="config-actions">
-          <button class="btn" onclick="copyText('subUrl2', this)">📋 Copy URL</button>
-          <button class="btn btn-secondary" onclick="window.open('https://mahour-music.ir:2053/sub/djMsOTY2OCwxNzgwNjczNjg44d70fb012', '_blank')">🔗 Open</button>
+          <button class="btn btn-small" onclick="copyConfig(0, this)">📋 Copy Link</button>
+          <button class="btn btn-small btn-secondary" onclick="showQR(0)">📷 QR Code</button>
+          <button class="btn btn-small btn-secondary" onclick="openInApp(0)">🚀 Open in App</button>
         </div>
       </div>
 
       <div class="config-card">
         <div class="config-header">
-          <span class="config-name">✅ How to Use</span>
-          <span class="config-protocol">GUIDE</span>
+          <span class="config-name">⏩ BetForward-5.00GB-23H</span>
+          <span class="config-protocol">VLESS</span>
         </div>
-        <p class="config-desc">Quick start in 3 steps</p>
-        <ol style="color:var(--text-dim);font-size:.85rem;line-height:1.8;padding-left:1.5rem">
-          <li>Download <strong>v2rayNG</strong> (Android) or <strong>Hiddify</strong> (iOS/PC)</li>
-          <li>Open the app → tap <strong>"+"</strong> or <strong>"Add subscription"</strong></li>
-          <li>Paste the subscription URL above and tap <strong>"Update"</strong></li>
-        </ol>
+        <div class="config-meta">
+          <span class="tag">🌐 snapp.ir:2087</span>
+          <span class="tag">🔒 TLS</span>
+          <span class="tag">🛰️ WebSocket</span>
+          <span class="tag">🇩🇪 Germany</span>
+        </div>
+        <div class="config-link" onclick="copyConfig(1, this)">vless://f487ed87-b45c-4cc4-017a-d10f80a7af95@snapp.ir:2087?alpn=h2%2Chttp%2F1.1%2Ch3&encryption=none&fp=chrome&host=cdn.daraflo.ir&path=%2FBetForward&security=tls&sni=cdn.daraflo.ir&type=ws#%E2%8F%A9%EF%B8%8FBetForward-5.00GB%F0%9F%93%8A-23H%E2%8F%B3</div>
+        <div class="config-actions">
+          <button class="btn btn-small" onclick="copyConfig(1, this)">📋 Copy Link</button>
+          <button class="btn btn-small btn-secondary" onclick="showQR(1)">📷 QR Code</button>
+          <button class="btn btn-small btn-secondary" onclick="openInApp(1)">🚀 Open in App</button>
+        </div>
       </div>
 
-      <div class="config-card">
+      <div class="config-card" style="border-style:dashed">
         <div class="config-header">
-          <span class="config-name">ℹ️ Note</span>
-          <span class="config-protocol">INFO</span>
+          <span class="config-name">➕ Add More Configs</span>
+          <span class="config-protocol">CUSTOM</span>
         </div>
-        <p class="config-desc">All configurations are loaded directly from the subscription server. For specific protocol configs (VLESS/VMess/Trojan/SS), use the subscription URL in your app — it will fetch and display them automatically.</p>
+        <p style="color:var(--text-dim);font-size:.85rem;margin-bottom:.5rem">Have other configs? Send them to me and I'll add them to this panel.</p>
+        <p style="color:var(--text-dim);font-size:.8rem">Current: 2 configs (both identical — let me know if you have more unique ones)</p>
       </div>
+
     </div>
   </div>
 
   <footer>
     <p>🛡️ <strong>Warden VPN</strong> — Powered by GitHub Pages</p>
-    <p style="margin-top:.5rem">Subscription hosted on <a href="https://mahour-music.ir:2053" target="_blank">mahour-music.ir</a></p>
+    <p style="margin-top:.5rem">Subscription: <a href="https://cdn.daraflo.ir:2096" target="_blank">cdn.daraflo.ir</a></p>
   </footer>
 </div>
 
+<div class="qr-modal" id="qrModal" onclick="if(event.target===this)closeQR()">
+  <div class="qr-box">
+    <div class="qr-title" id="qrTitle">Config QR Code</div>
+    <div id="qrContainer"></div>
+    <button class="qr-close" onclick="closeQR()">Close</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">✅ Copied!</div>
+
 <script>
+const configs = [
+  "vless://f487ed87-b45c-4cc4-017a-d10f80a7af95@snapp.ir:2087?alpn=h2%2Chttp%2F1.1%2Ch3&encryption=none&fp=chrome&host=cdn.daraflo.ir&path=%2FBetForward&security=tls&sni=cdn.daraflo.ir&type=ws#%E2%8F%A9%EF%B8%8FBetForward-5.00GB%F0%9F%93%8A-23H%E2%8F%B3",
+  "vless://f487ed87-b45c-4cc4-017a-d10f80a7af95@snapp.ir:2087?alpn=h2%2Chttp%2F1.1%2Ch3&encryption=none&fp=chrome&host=cdn.daraflo.ir&path=%2FBetForward&security=tls&sni=cdn.daraflo.ir&type=ws#%E2%8F%A9%EF%B8%8FBetForward-5.00GB%F0%9F%93%8A-23H%E2%8F%B3"
+];
+const names = ["⏩ BetForward-5.00GB-23H", "⏩ BetForward-5.00GB-23H (2)"];
+
 function copyText(elementId, btn) {
   const el = document.getElementById(elementId);
   const text = el.innerText || el.textContent;
-  navigator.clipboard.writeText(text).then(() => {
-    const orig = btn.innerText;
-    btn.innerText = '✅ Copied!';
-    btn.style.background = '#00cc7d';
-    setTimeout(() => {
-      btn.innerText = orig;
-      btn.style.background = '';
-    }, 1500);
+  navigator.clipboard.writeText(text).then(() => showToast(btn, '✅ Copied!'));
+}
+
+function copyConfig(idx, btn) {
+  navigator.clipboard.writeText(configs[idx]).then(() => showToast(btn, '✅ Copied!'));
+}
+
+function showToast(btn, msg) {
+  const toast = document.getElementById('toast');
+  toast.innerText = msg;
+  toast.classList.add('show');
+  const orig = btn ? btn.innerText : '';
+  if (btn) {
+    btn.innerText = msg;
+    setTimeout(() => { btn.innerText = orig; }, 1500);
+  }
+  setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+function openInApp(idx) {
+  const config = encodeURIComponent(configs[idx]);
+  window.location.href = `v2rayng://install-config?config=${config}`;
+}
+
+function showQR(idx) {
+  const modal = document.getElementById('qrModal');
+  const title = document.getElementById('qrTitle');
+  const container = document.getElementById('qrContainer');
+  title.innerText = names[idx];
+  container.innerHTML = '<canvas id="qrCanvas"></canvas>';
+  modal.classList.add('show');
+  
+  // Load QR library
+  if (typeof QRCode === 'undefined') {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js';
+    script.onload = () => generateQR(configs[idx]);
+    document.head.appendChild(script);
+  } else {
+    generateQR(configs[idx]);
+  }
+}
+
+function generateQR(text) {
+  QRCode.toCanvas(document.getElementById('qrCanvas'), text, {width: 280, margin: 1}, err => {
+    if (err) document.getElementById('qrContainer').innerHTML = 'Error: ' + err;
   });
+}
+
+function closeQR() {
+  document.getElementById('qrModal').classList.remove('show');
 }
 </script>
 </body>
