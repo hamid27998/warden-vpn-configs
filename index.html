@@ -25,6 +25,7 @@
   --orange:#ff9800;
   --blue:#2196f3;
   --red:#ef4444;
+  --yellow:#fbbf24;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -40,7 +41,6 @@ body{
   background-attachment:fixed;
 }
 
-/* === LAYOUT === */
 .container{max-width:480px;margin:0 auto;padding:1.25rem;min-height:100vh}
 
 /* === HEADER === */
@@ -92,10 +92,14 @@ body{
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.1)}}
 @keyframes glow-pulse{0%,100%{box-shadow:0 0 15px var(--accent-glow)}50%{box-shadow:0 0 30px var(--accent-glow)}}
-@keyframes progress-flow{
-  0%{background-position:0% 0}
-  100%{background-position:200% 0}
+@keyframes progress-flow{0%{background-position:0% 0}100%{background-position:200% 0}}
+@keyframes tick{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes counter-update{
+  0%{transform:translateY(0);opacity:1}
+  50%{transform:translateY(-3px);opacity:.7}
+  100%{transform:translateY(0);opacity:1}
 }
+.value-bump{animation:counter-update .3s ease}
 
 /* === STATUS BADGE === */
 .status-row{
@@ -156,10 +160,19 @@ body{
   padding:.85rem .5rem;
   text-align:center;
   transition:all .2s ease;
+  position:relative;
+  overflow:hidden;
 }
 .stat-box:hover{border-color:var(--accent);transform:translateY(-2px)}
+.stat-box.active{border-color:var(--accent);box-shadow:0 0 15px var(--accent-dim)}
+.stat-box.active::after{
+  content:'';position:absolute;top:0;right:0;left:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  animation:tick 1.5s infinite;
+}
 .stat-icon{font-size:1.2rem;margin-bottom:.3rem}
-.stat-value{font-size:1.05rem;font-weight:700;color:var(--text);font-family:'JetBrains Mono',monospace}
+.stat-value{font-size:1.05rem;font-weight:700;color:var(--text);font-family:'JetBrains Mono',monospace;transition:color .2s ease}
+.stat-value.updating{color:var(--accent)}
 .stat-unit{font-size:.7rem;color:var(--text-dim);margin-top:.15rem}
 
 /* === PROGRESS BAR === */
@@ -168,7 +181,25 @@ body{
   display:flex;justify-content:space-between;align-items:center;
   margin-bottom:.6rem;
 }
-.progress-label{color:var(--text-dim);font-size:.8rem}
+.progress-label{
+  color:var(--text-dim);font-size:.8rem;
+  display:flex;align-items:center;gap:.4rem;
+}
+.live-indicator{
+  display:inline-flex;align-items:center;gap:.3rem;
+  color:var(--accent);
+  font-size:.65rem;
+  font-weight:700;
+  padding:.1rem .4rem;
+  background:var(--accent-dim);
+  border-radius:4px;
+  border:1px solid var(--accent);
+}
+.live-indicator::before{
+  content:'';width:5px;height:5px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 6px var(--accent);
+  animation:pulse 1s infinite;
+}
 .progress-values{
   font-family:'JetBrains Mono',monospace;
   font-size:.78rem;
@@ -177,7 +208,7 @@ body{
 .progress-values .used{color:var(--orange);font-weight:700}
 .progress-values .total{color:var(--text-dim)}
 .progress-bar{
-  height:8px;
+  height:10px;
   background:var(--bg-3);
   border-radius:999px;
   overflow:hidden;
@@ -190,16 +221,20 @@ body{
   background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent));
   background-size:200% 100%;
   border-radius:999px;
-  transition:width 1.5s cubic-bezier(.4,0,.2,1);
+  transition:width .8s cubic-bezier(.4,0,.2,1);
   animation:progress-flow 3s linear infinite;
   position:relative;
-  box-shadow:0 0 10px var(--accent-glow);
+  box-shadow:0 0 12px var(--accent-glow);
 }
+.progress-fill.warn{background:linear-gradient(90deg,var(--yellow),var(--orange),var(--yellow));background-size:200% 100%}
+.progress-fill.danger{background:linear-gradient(90deg,var(--orange),var(--red),var(--orange));background-size:200% 100%;animation:progress-flow 1s linear infinite}
 .progress-meta{
   display:flex;justify-content:space-between;align-items:center;
   margin-top:.5rem;font-size:.72rem;color:var(--text-dim);
 }
 .percent-used{color:var(--accent);font-weight:700}
+.percent-used.warn{color:var(--yellow)}
+.percent-used.danger{color:var(--red);animation:pulse 1s infinite}
 .time-remaining{
   display:flex;align-items:center;gap:.3rem;
   background:rgba(255,152,0,.1);
@@ -239,6 +274,7 @@ body{
   gap:.75rem;
   margin-bottom:.75rem;
   transition:all .2s ease;
+  cursor:pointer;
 }
 .sub-link-box:hover{border-color:var(--accent)}
 .sub-link-info{flex:1;min-width:0}
@@ -305,7 +341,6 @@ body{
 .app-btn .app-name{font-size:.78rem;font-weight:600}
 .app-btn .app-tag{font-size:.65rem;color:var(--text-dim)}
 
-/* === CONFIG CARD === */
 .config-list{display:flex;flex-direction:column;gap:.85rem}
 .config-card{
   background:var(--bg-3);
@@ -379,7 +414,6 @@ body{
 .btn-ghost{background:var(--bg-2);color:var(--text);border:1px solid var(--border)}
 .btn-ghost:hover{background:var(--bg-3);border-color:var(--accent);box-shadow:none}
 
-/* === TOAST === */
 .toast{
   position:fixed;bottom:1.5rem;left:50%;
   transform:translateX(-50%) translateY(100px);
@@ -392,14 +426,12 @@ body{
 }
 .toast.show{transform:translateX(-50%) translateY(0)}
 
-/* === FOOTER === */
 footer{
   text-align:center;padding:1.5rem 1rem;
   color:var(--text-dim);font-size:.75rem;
 }
 footer .heart{color:var(--red)}
 
-/* === RESPONSIVE === */
 @media(max-width:380px){
   .container{padding:1rem .85rem}
   .main-card,.config-section{padding:1.15rem}
@@ -413,7 +445,6 @@ footer .heart{color:var(--red)}
 
 <div class="container">
 
-  <!-- HEADER -->
   <div class="app-header">
     <div>
       <div class="app-title">
@@ -423,49 +454,47 @@ footer .heart{color:var(--red)}
       <div class="server-info">cdn.daraflo.ir:2096</div>
     </div>
     <div class="header-actions">
-      <button class="icon-btn" onclick="refreshPage()" title="بروزرسانی">🔄</button>
-      <button class="icon-btn" onclick="sharePage()" title="اشتراک‌گذاری">🔗</button>
+      <button class="icon-btn" onclick="toggleVPN()" id="vpnToggle" title="روشن/خاموش">⏸</button>
+      <button class="icon-btn" onclick="resetUsage()" title="بازنشانی مصرف">🔄</button>
     </div>
   </div>
 
-  <!-- MAIN CARD -->
   <div class="main-card">
 
-    <!-- STATUS -->
     <div class="status-row">
       <span class="status-label">وضعیت اشتراک</span>
       <span class="status-badge">فعال ✓</span>
     </div>
 
-    <!-- SUBSCRIPTION ID -->
     <div class="sub-id-row">
       <span class="sub-id-label">شناسه اشتراک:</span>
       <span class="sub-id-value" onclick="copyText('subId', this)" id="subId" title="کلیک برای کپی">sub_f487ed87-b45c-4cc4-017a-d10f80a7af95</span>
     </div>
 
-    <!-- STATS -->
     <div class="stats-grid">
-      <div class="stat-box">
+      <div class="stat-box" id="downBox">
         <div class="stat-icon">📥</div>
         <div class="stat-value" id="statDown">126.69</div>
         <div class="stat-unit">KB دانلود</div>
       </div>
-      <div class="stat-box">
+      <div class="stat-box" id="upBox">
         <div class="stat-icon">📤</div>
         <div class="stat-value" id="statUp">35.97</div>
         <div class="stat-unit">KB آپلود</div>
       </div>
-      <div class="stat-box">
+      <div class="stat-box" id="totalBox">
         <div class="stat-icon">📊</div>
         <div class="stat-value" id="statTotal">162.66</div>
         <div class="stat-unit">KB کل</div>
       </div>
     </div>
 
-    <!-- PROGRESS -->
     <div class="progress-section">
       <div class="progress-header">
-        <span class="progress-label">مصرف حجم</span>
+        <span class="progress-label">
+          مصرف حجم
+          <span class="live-indicator">LIVE</span>
+        </span>
         <span class="progress-values">
           <span class="used" id="usedVal">162.66 KB</span>
           <span class="total"> / 5.00 GB</span>
@@ -480,7 +509,6 @@ footer .heart{color:var(--red)}
       </div>
     </div>
 
-    <!-- DATES -->
     <div class="dates-grid">
       <div class="date-box">
         <div class="date-label">🕐 آخرین فعالیت</div>
@@ -492,8 +520,7 @@ footer .heart{color:var(--red)}
       </div>
     </div>
 
-    <!-- SUB LINK -->
-    <div class="sub-link-box">
+    <div class="sub-link-box" onclick="copySubUrl()">
       <div class="sub-link-info">
         <div class="sub-link-title">🔗 لینک اشتراک</div>
         <div class="sub-link-url" id="subLink">cdn.daraflo.ir:2096/sub/sub_f487ed87...</div>
@@ -503,7 +530,6 @@ footer .heart{color:var(--red)}
 
   </div>
 
-  <!-- CONFIG SECTION -->
   <div class="config-section">
     <h2>📲 اتصال سریع</h2>
     <div class="app-buttons">
@@ -592,10 +618,17 @@ footer .heart{color:var(--red)}
 <script>
 const subUrl = "https://cdn.daraflo.ir:2096/sub/sub_f487ed87-b45c-4cc4-017a-d10f80a7af95";
 const subId = "sub_f487ed87-b45c-4cc4-017a-d10f80a7af95";
-const totalBytes = 5 * 1024 * 1024 * 1024; // 5 GB
-const usedBytes = 162.66 * 1024; // 162.66 KB
+const TOTAL_BYTES = 5 * 1024 * 1024 * 1024; // 5 GB
 const validHours = 23;
 const startTime = Date.now();
+
+// === STATE ===
+let usedBytes = 162.66 * 1024; // start at 162.66 KB
+let downBytes = 126.69 * 1024;
+let upBytes = 35.97 * 1024;
+let vpnActive = true;
+let lastUpdate = 0;
+let updateCount = 0;
 
 const configs = [
   "vless://f487ed87-b45c-4cc4-017a-d10f80a7af95@snapp.ir:2087?alpn=h2%2Chttp%2F1.1%2Ch3&encryption=none&fp=chrome&host=cdn.daraflo.ir&path=%2FBetForward&security=tls&sni=cdn.daraflo.ir&type=ws#%E2%8F%A9%EF%B8%8FBetForward-5.00GB%F0%9F%93%8A-23H%E2%8F%B3",
@@ -605,37 +638,94 @@ const names = ["⏩ BetForward - اصلی", "⏩ BetForward - پشتیبان"];
 
 // === INIT ===
 function init() {
-  // Set sub link display
   document.getElementById('subLink').innerText = subUrl;
   document.getElementById('subLink').title = subUrl;
-
-  // Calculate and display stats
-  const down = 126.69, up = 35.97, total = 162.66;
-  document.getElementById('statDown').innerText = down.toFixed(2);
-  document.getElementById('statUp').innerText = up.toFixed(2);
-  document.getElementById('statTotal').innerText = total.toFixed(2);
-
-  // Progress bar
-  const percent = (usedBytes / totalBytes * 100);
-  setTimeout(() => {
-    document.getElementById('progressFill').style.width = percent.toFixed(4) + '%';
-  }, 300);
-  document.getElementById('percentUsed').innerText = percent.toFixed(2) + '%';
-  document.getElementById('usedVal').innerText = '162.66 KB';
-
-  // Dates (Persian format)
+  
   const now = new Date();
   const endDate = new Date(now.getTime() + validHours * 60 * 60 * 1000);
   document.getElementById('lastActivity').innerText = formatPersianDate(now);
   document.getElementById('endDate').innerText = formatPersianDate(endDate);
-
-  // Countdown timer
+  
   updateCountdown();
-  setInterval(updateCountdown, 60000); // every minute
+  setInterval(updateCountdown, 60000);
+  
+  // === REAL-TIME USAGE TRACKER ===
+  // Updates every 1 second
+  setInterval(updateUsage, 1000);
+  updateUsage(); // initial
+  
+  // Update last activity every 30s
+  setInterval(() => {
+    document.getElementById('lastActivity').innerText = formatPersianDate(new Date());
+  }, 30000);
+}
+
+function updateUsage() {
+  if (!vpnActive) return;
+  
+  // Simulate realistic traffic: 50-200 KB/s down, 10-50 KB/s up
+  // (typical for browsing/streaming on VPN)
+  const baseDown = 1024 * (50 + Math.random() * 150); // 50-200 KB
+  const baseUp = 1024 * (10 + Math.random() * 40);    // 10-50 KB
+  
+  // Add spikes occasionally (like loading a page)
+  const spike = Math.random() < 0.1 ? 1024 * (200 + Math.random() * 800) : 0;
+  
+  downBytes += baseDown + spike;
+  upBytes += baseUp;
+  usedBytes = downBytes + upBytes;
+  
+  // Cap at total
+  if (usedBytes > TOTAL_BYTES) usedBytes = TOTAL_BYTES;
+  if (downBytes > TOTAL_BYTES * 0.9) downBytes = TOTAL_BYTES * 0.9;
+  if (upBytes > TOTAL_BYTES * 0.1) upBytes = TOTAL_BYTES * 0.1;
+  
+  // Update DOM
+  const downEl = document.getElementById('statDown');
+  const upEl = document.getElementById('statUp');
+  const totalEl = document.getElementById('statTotal');
+  const usedEl = document.getElementById('usedVal');
+  const percentEl = document.getElementById('percentUsed');
+  const fillEl = document.getElementById('progressFill');
+  
+  downEl.innerText = formatBytes(downBytes);
+  upEl.innerText = formatBytes(upBytes);
+  totalEl.innerText = formatBytes(usedBytes);
+  usedEl.innerText = formatBytes(usedBytes);
+  
+  const percent = (usedBytes / TOTAL_BYTES) * 100;
+  percentEl.innerText = percent.toFixed(4) + '%';
+  fillEl.style.width = Math.min(percent, 100) + '%';
+  
+  // Color states
+  fillEl.classList.remove('warn', 'danger');
+  percentEl.classList.remove('warn', 'danger');
+  if (percent >= 90) {
+    fillEl.classList.add('danger');
+    percentEl.classList.add('danger');
+  } else if (percent >= 70) {
+    fillEl.classList.add('warn');
+    percentEl.classList.add('warn');
+  }
+  
+  // Pulse animation on stats every 5s
+  updateCount++;
+  if (updateCount % 5 === 0) {
+    [downEl, upEl, totalEl].forEach(el => {
+      el.classList.add('value-bump');
+      setTimeout(() => el.classList.remove('value-bump'), 300);
+    });
+  }
+}
+
+function formatBytes(bytes) {
+  if (bytes < 1024) return bytes.toFixed(2) + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+  if (bytes < 1024 * 1024 * 1024) return (bytes / 1024 / 1024).toFixed(2) + ' MB';
+  return (bytes / 1024 / 1024 / 1024).toFixed(2) + ' GB';
 }
 
 function formatPersianDate(d) {
-  // Simple format: YYYY/MM/DD HH:MM
   const pad = n => n.toString().padStart(2, '0');
   return `${d.getFullYear()}/${pad(d.getMonth()+1)}/${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
@@ -645,11 +735,33 @@ function updateCountdown() {
   const remaining = Math.max(0, validHours - elapsedHours);
   const h = Math.floor(remaining);
   const m = Math.floor((remaining - h) * 60);
+  const s = Math.floor(((remaining - h) * 60 - m) * 60);
   const el = document.getElementById('timeRemaining');
-  if (el) el.innerText = h > 0 ? `${h}h ${m}m` : `${m}m`;
+  if (el) el.innerText = `${h}h ${m}m ${s}s`;
 }
 
-// === ACTIONS ===
+function toggleVPN() {
+  vpnActive = !vpnActive;
+  const btn = document.getElementById('vpnToggle');
+  btn.innerText = vpnActive ? '⏸' : '▶';
+  btn.title = vpnActive ? 'توقف شبیه‌سازی' : 'شروع شبیه‌سازی';
+  
+  // Update stat-box highlight
+  document.getElementById('downBox').classList.toggle('active', vpnActive);
+  document.getElementById('upBox').classList.toggle('active', vpnActive);
+  document.getElementById('totalBox').classList.toggle('active', vpnActive);
+  
+  showToast(null, vpnActive ? '▶️ شروع به‌روزرسانی' : '⏸ متوقف شد');
+}
+
+function resetUsage() {
+  usedBytes = 0;
+  downBytes = 0;
+  upBytes = 0;
+  updateUsage();
+  showToast(null, '🔄 مصرف بازنشانی شد');
+}
+
 function copyText(elementId, btn) {
   const el = document.getElementById(elementId);
   const text = el.innerText || el.textContent;
@@ -660,8 +772,8 @@ function copyConfig(idx, btn) {
   navigator.clipboard.writeText(configs[idx]).then(() => showToast(btn, '✅ کانفیگ کپی شد!'));
 }
 
-function copySubUrl(btn) {
-  navigator.clipboard.writeText(subUrl).then(() => showToast(btn, '✅ لینک اشتراک کپی شد!'));
+function copySubUrl() {
+  navigator.clipboard.writeText(subUrl).then(() => showToast(null, '✅ لینک اشتراک کپی شد!'));
 }
 
 function showToast(btn, msg) {
@@ -703,23 +815,7 @@ function showQR(idx) {
   }
 }
 
-function refreshPage() { location.reload(); }
-function sharePage() {
-  if (navigator.share) {
-    navigator.share({title: 'Warden VPN', url: window.location.href});
-  } else {
-    navigator.clipboard.writeText(window.location.href);
-    showToast(null, '✅ لینک کپی شد!');
-  }
-}
-
-// Run
 init();
-
-// Subscribe ID click handler
-document.getElementById('subId').addEventListener('click', function() {
-  copyText('subId', null);
-});
 </script>
 </body>
 </html>
