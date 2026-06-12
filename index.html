@@ -1,558 +1,580 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>🛡️ Warden VPN — Premium VPN Panel</title>
+<title>Warden VPN — Subscription</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg-0:#05070d;
-  --bg-1:#0a0e1a;
-  --bg-2:#131826;
-  --bg-3:#1a2138;
-  --border:#1f2937;
-  --border-light:#2d3748;
-  --accent:#00ff9d;
-  --accent-2:#3b82f6;
-  --accent-3:#a855f7;
-  --accent-dim:#00ff9d33;
-  --text:#f1f5f9;
-  --text-dim:#94a3b8;
-  --text-mute:#64748b;
-  --danger:#ef4444;
-  --warn:#f59e0b;
+  --bg-0:#0d0f14;
+  --bg-1:#14171f;
+  --bg-2:#1a1d27;
+  --bg-3:#222633;
+  --border:#2a2f3d;
+  --border-light:#353a4a;
+  --accent:#00e676;
+  --accent-2:#00c853;
+  --accent-dim:rgba(0,230,118,.15);
+  --accent-glow:rgba(0,230,118,.4);
+  --text:#e8eaf0;
+  --text-dim:#8a8f9e;
+  --text-mute:#5a5f6e;
+  --orange:#ff9800;
+  --blue:#2196f3;
+  --red:#ef4444;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
-  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  font-family:'Vazirmatn',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   background:var(--bg-0);
   color:var(--text);
   min-height:100vh;
-  overflow-x:hidden;
-  position:relative;
   -webkit-font-smoothing:antialiased;
-}
-
-/* === ANIMATED BACKGROUND === */
-.bg-grid{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
   background-image:
-    linear-gradient(rgba(0,255,157,.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,255,157,.04) 1px,transparent 1px);
-  background-size:50px 50px;
-  mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%);
-}
-.bg-orb{position:fixed;border-radius:50%;filter:blur(80px);opacity:.5;pointer-events:none;z-index:0;animation:float 20s ease-in-out infinite}
-.bg-orb-1{width:500px;height:500px;background:radial-gradient(circle,#00ff9d 0%,transparent 70%);top:-100px;left:-100px}
-.bg-orb-2{width:600px;height:600px;background:radial-gradient(circle,#3b82f6 0%,transparent 70%);bottom:-200px;right:-150px;animation-delay:-7s}
-.bg-orb-3{width:400px;height:400px;background:radial-gradient(circle,#a855f7 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:-14s}
-@keyframes float{
-  0%,100%{transform:translate(0,0) scale(1)}
-  25%{transform:translate(50px,-50px) scale(1.1)}
-  50%{transform:translate(-30px,30px) scale(.9)}
-  75%{transform:translate(40px,40px) scale(1.05)}
+    radial-gradient(circle at 20% 0%,rgba(0,230,118,.06) 0%,transparent 50%),
+    radial-gradient(circle at 80% 100%,rgba(33,150,243,.04) 0%,transparent 50%);
+  background-attachment:fixed;
 }
 
 /* === LAYOUT === */
-.container{max-width:1000px;margin:0 auto;padding:2rem 1.25rem;position:relative;z-index:1}
-header{text-align:center;margin-bottom:3rem;padding-top:2rem;animation:fadeInDown .8s ease-out}
-@keyframes fadeInDown{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.2)}}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
-@keyframes glow{0%,100%{box-shadow:0 0 20px var(--accent-dim),0 0 40px var(--accent-dim)}50%{box-shadow:0 0 30px var(--accent-dim),0 0 60px var(--accent-dim)}}
-@keyframes slideInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
-@keyframes slideInRight{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
-@keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1.05)}70%{transform:scale(.95)}100%{transform:scale(1)}}
+.container{max-width:480px;margin:0 auto;padding:1.25rem;min-height:100vh}
 
-/* === LOGO === */
-.logo-wrap{position:relative;display:inline-block;margin-bottom:1.5rem}
-.logo{
-  font-size:5rem;
-  filter:drop-shadow(0 0 30px var(--accent-dim));
-  animation:bounceIn 1s ease-out,float-logo 4s ease-in-out 1s infinite;
-  display:inline-block;
+/* === HEADER === */
+.app-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 0 1.25rem;
+  animation:fadeIn .5s ease;
 }
-@keyframes float-logo{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.logo-rings{position:absolute;inset:50% 50% 0 0;transform:translate(50%,-50%);pointer-events:none}
-.logo-rings::before,.logo-rings::after{
-  content:'';position:absolute;inset:-20px;border-radius:50%;
-  border:2px solid var(--accent);opacity:.3;
+.app-title{font-size:1.15rem;font-weight:700;display:flex;align-items:center;gap:.5rem}
+.app-title .badge-icon{
+  width:32px;height:32px;border-radius:8px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  display:flex;align-items:center;justify-content:center;
+  color:#0d0f14;font-size:1.1rem;
+  box-shadow:0 4px 12px var(--accent-glow);
 }
-.logo-rings::before{animation:ping 2.5s ease-out infinite}
-.logo-rings::after{animation:ping 2.5s ease-out .8s infinite}
-@keyframes ping{0%{transform:scale(.8);opacity:.5}100%{transform:scale(2.2);opacity:0}}
-
-h1{
-  font-size:clamp(2rem,5vw,3.2rem);
-  font-weight:900;
-  margin-bottom:.5rem;
-  letter-spacing:-.02em;
-  background:linear-gradient(135deg,#00ff9d 0%,#3b82f6 50%,#a855f7 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  background-size:200% 200%;
-  animation:gradient-shift 5s ease infinite,fadeInUp .8s ease-out .1s backwards;
-}
-@keyframes gradient-shift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.subtitle{color:var(--text-dim);font-size:1.05rem;margin-bottom:1.25rem;animation:fadeInUp .8s ease-out .2s backwards}
-
-/* === BADGES === */
-.badge-row{display:flex;justify-content:center;flex-wrap:wrap;gap:.5rem;animation:fadeInUp .8s ease-out .3s backwards}
-.badge{
-  display:inline-flex;align-items:center;gap:.4rem;
-  padding:.4rem .85rem;
-  background:rgba(19,24,38,.7);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  border:1px solid var(--border-light);
-  border-radius:999px;
-  font-size:.8rem;
-  font-weight:600;
-  transition:all .25s ease;
-}
-.badge:hover{transform:translateY(-2px);border-color:var(--accent);background:rgba(19,24,38,.9)}
-.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:pulse 2s infinite}
-.badge.live{background:linear-gradient(135deg,rgba(0,255,157,.1),rgba(59,130,246,.1));border-color:rgba(0,255,157,.3)}
-
-/* === STATS BAR === */
-.stats-bar{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-  gap:1rem;
-  margin:2rem 0;
-  animation:fadeInUp .8s ease-out .4s backwards;
-}
-.stat{
-  background:rgba(19,24,38,.5);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
+.server-info{font-size:.7rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;margin-top:.15rem}
+.header-actions{display:flex;gap:.5rem}
+.icon-btn{
+  width:36px;height:36px;border-radius:10px;
+  background:var(--bg-2);
   border:1px solid var(--border);
-  border-radius:12px;
-  padding:1rem;
-  text-align:center;
-  transition:all .3s ease;
+  color:var(--text-dim);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:.95rem;
+  transition:all .2s ease;
 }
-.stat:hover{transform:translateY(-3px);border-color:var(--accent-dim);box-shadow:0 10px 30px rgba(0,0,0,.3)}
-.stat-val{font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.stat-label{color:var(--text-dim);font-size:.7rem;margin-top:.25rem;text-transform:uppercase;letter-spacing:.5px}
+.icon-btn:hover{color:var(--accent);border-color:var(--accent);background:var(--bg-3)}
 
-/* === SECTIONS === */
-.section{margin-bottom:2rem;animation:fadeInUp .8s ease-out backwards}
-.section-title{font-size:1.3rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
-.section-sub{color:var(--text-dim);font-size:.9rem;margin-bottom:1.25rem}
-
-/* === SUBSCRIBE BOX === */
-.subscribe-box{
-  background:linear-gradient(135deg,rgba(19,24,38,.8),rgba(26,33,56,.6));
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  border:1px solid var(--accent-dim);
-  border-radius:16px;
+/* === MAIN CARD === */
+.main-card{
+  background:linear-gradient(180deg,var(--bg-2),var(--bg-1));
+  border:1px solid var(--border);
+  border-radius:20px;
   padding:1.5rem;
+  margin-bottom:1rem;
   position:relative;
   overflow:hidden;
-  box-shadow:0 20px 60px rgba(0,0,0,.3);
-  animation:glow 4s ease-in-out infinite;
+  box-shadow:0 10px 40px rgba(0,0,0,.3);
+  animation:slideUp .6s ease;
 }
-.subscribe-box::before{
-  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(0,255,157,.1),transparent);
-  animation:shimmer 3s linear infinite;
+.main-card::before{
+  content:'';position:absolute;top:0;right:0;left:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),transparent,var(--accent));
+  opacity:.5;
 }
-.subscribe-box h3{color:var(--accent);margin-bottom:.75rem;font-size:1.05rem;display:flex;align-items:center;gap:.5rem}
-.subscribe-url{
-  display:flex;gap:.5rem;align-items:center;
-  background:rgba(5,7,13,.6);
-  padding:.65rem;
-  border-radius:10px;
-  font-family:'JetBrains Mono',monospace;
+
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.1)}}
+@keyframes glow-pulse{0%,100%{box-shadow:0 0 15px var(--accent-glow)}50%{box-shadow:0 0 30px var(--accent-glow)}}
+@keyframes progress-flow{
+  0%{background-position:0% 0}
+  100%{background-position:200% 0}
+}
+
+/* === STATUS BADGE === */
+.status-row{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1.5rem;flex-wrap:wrap;gap:.5rem;
+}
+.status-label{color:var(--text-dim);font-size:.85rem;font-weight:500}
+.status-badge{
+  background:var(--accent-dim);
+  color:var(--accent);
+  padding:.35rem .85rem;
+  border-radius:8px;
   font-size:.8rem;
+  font-weight:700;
+  display:flex;align-items:center;gap:.4rem;
+  border:1px solid var(--accent);
+  animation:glow-pulse 2.5s ease-in-out infinite;
+}
+.status-badge::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 8px var(--accent);
+  animation:pulse 1.5s infinite;
+}
+
+/* === SUBSCRIPTION ID === */
+.sub-id-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.85rem 1rem;
+  background:var(--bg-3);
+  border-radius:12px;
+  margin-bottom:1.5rem;
   border:1px solid var(--border);
-  margin-bottom:1rem;
-  transition:border-color .25s ease;
 }
-.subscribe-url:hover{border-color:var(--accent)}
-.subscribe-url code{flex:1;color:var(--text);padding:0 .5rem;word-break:break-all}
+.sub-id-label{color:var(--text-dim);font-size:.8rem}
+.sub-id-value{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;
+  color:var(--text);
+  direction:ltr;
+  max-width:60%;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  cursor:pointer;
+}
+.sub-id-value:hover{color:var(--accent)}
 
-/* === BUTTONS === */
-.btn{
-  background:var(--accent);color:#0a0e1a;border:none;
-  padding:.6rem 1.1rem;border-radius:8px;
-  font-weight:700;cursor:pointer;font-size:.85rem;
-  transition:all .2s ease;
-  display:inline-flex;align-items:center;justify-content:center;gap:.4rem;
-  font-family:inherit;white-space:nowrap;
-  position:relative;overflow:hidden;
-}
-.btn::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);
-  transform:translateX(-100%);
-  transition:transform .5s ease;
-}
-.btn:hover::before{transform:translateX(100%)}
-.btn:hover{background:#00cc7d;transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,255,157,.3)}
-.btn:active{transform:translateY(0)}
-.btn-secondary{background:transparent;color:var(--accent);border:1px solid var(--accent)}
-.btn-secondary:hover{background:var(--accent-dim);box-shadow:0 8px 20px rgba(0,255,157,.2)}
-.btn-ghost{background:rgba(19,24,38,.5);color:var(--text);border:1px solid var(--border)}
-.btn-ghost:hover{background:rgba(19,24,38,.8);border-color:var(--accent);box-shadow:none}
-.btn-small{padding:.45rem .85rem;font-size:.8rem}
-.btn-icon{padding:.5rem;border-radius:8px;min-width:36px}
-
-/* === APP BUTTONS === */
-.app-buttons{
+/* === STATS GRID === */
+.stats-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-  gap:.6rem;
+  grid-template-columns:repeat(3,1fr);
+  gap:.75rem;
+  margin-bottom:1.5rem;
 }
-.app-btn{
-  background:rgba(5,7,13,.4);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
+.stat-box{
+  background:var(--bg-3);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:.85rem .5rem;
+  text-align:center;
+  transition:all .2s ease;
+}
+.stat-box:hover{border-color:var(--accent);transform:translateY(-2px)}
+.stat-icon{font-size:1.2rem;margin-bottom:.3rem}
+.stat-value{font-size:1.05rem;font-weight:700;color:var(--text);font-family:'JetBrains Mono',monospace}
+.stat-unit{font-size:.7rem;color:var(--text-dim);margin-top:.15rem}
+
+/* === PROGRESS BAR === */
+.progress-section{margin-bottom:1.5rem}
+.progress-header{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:.6rem;
+}
+.progress-label{color:var(--text-dim);font-size:.8rem}
+.progress-values{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.78rem;
+  color:var(--text);
+}
+.progress-values .used{color:var(--orange);font-weight:700}
+.progress-values .total{color:var(--text-dim)}
+.progress-bar{
+  height:8px;
+  background:var(--bg-3);
+  border-radius:999px;
+  overflow:hidden;
+  position:relative;
+  border:1px solid var(--border);
+}
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent));
+  background-size:200% 100%;
+  border-radius:999px;
+  transition:width 1.5s cubic-bezier(.4,0,.2,1);
+  animation:progress-flow 3s linear infinite;
+  position:relative;
+  box-shadow:0 0 10px var(--accent-glow);
+}
+.progress-meta{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:.5rem;font-size:.72rem;color:var(--text-dim);
+}
+.percent-used{color:var(--accent);font-weight:700}
+.time-remaining{
+  display:flex;align-items:center;gap:.3rem;
+  background:rgba(255,152,0,.1);
+  color:var(--orange);
+  padding:.2rem .55rem;
+  border-radius:6px;
+  font-weight:700;
+  font-family:'JetBrains Mono',monospace;
+  border:1px solid rgba(255,152,0,.3);
+}
+
+/* === DATES === */
+.dates-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:.75rem;
+  margin-bottom:1.5rem;
+}
+.date-box{
+  background:var(--bg-3);
   border:1px solid var(--border);
   border-radius:12px;
   padding:.85rem;
+  transition:all .2s ease;
+}
+.date-box:hover{border-color:var(--accent)}
+.date-label{color:var(--text-dim);font-size:.72rem;margin-bottom:.3rem;display:flex;align-items:center;gap:.3rem}
+.date-value{font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:600;color:var(--text);direction:ltr;text-align:right}
+
+/* === SUB LINK === */
+.sub-link-box{
+  background:var(--bg-3);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:1rem;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:.75rem;
+  margin-bottom:.75rem;
+  transition:all .2s ease;
+}
+.sub-link-box:hover{border-color:var(--accent)}
+.sub-link-info{flex:1;min-width:0}
+.sub-link-title{color:var(--text-dim);font-size:.75rem;margin-bottom:.25rem}
+.sub-link-url{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;
+  color:var(--text);
+  direction:ltr;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.sub-badge{
+  background:var(--accent);
+  color:#0d0f14;
+  padding:.45rem 1rem;
+  border-radius:8px;
+  font-weight:800;
+  font-size:.85rem;
+  letter-spacing:1px;
+  box-shadow:0 4px 12px var(--accent-glow);
+}
+
+/* === CONFIG SECTION === */
+.config-section{
+  background:linear-gradient(180deg,var(--bg-2),var(--bg-1));
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:1.5rem;
+  margin-bottom:1rem;
+  animation:slideUp .6s ease .1s backwards;
+}
+.config-section h2{
+  font-size:1.05rem;font-weight:700;
+  margin-bottom:1rem;
+  display:flex;align-items:center;gap:.5rem;
+  color:var(--text);
+}
+.config-section h2::before{
+  content:'';width:4px;height:18px;
+  background:var(--accent);
+  border-radius:2px;
+  box-shadow:0 0 8px var(--accent-glow);
+}
+
+.app-buttons{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:.6rem;
+  margin-bottom:1.25rem;
+}
+.app-btn{
+  background:var(--bg-3);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:.85rem .5rem;
   text-align:center;
   text-decoration:none;
   color:var(--text);
-  transition:all .25s ease;
+  transition:all .2s ease;
   display:flex;flex-direction:column;align-items:center;gap:.4rem;
-  position:relative;overflow:hidden;
 }
-.app-btn::after{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(circle at center,var(--accent-dim) 0%,transparent 70%);
-  opacity:0;transition:opacity .3s ease;
-}
-.app-btn:hover::after{opacity:1}
-.app-btn:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,255,157,.15)}
-.app-btn .app-icon{font-size:1.8rem;position:relative;z-index:1;transition:transform .3s ease}
-.app-btn:hover .app-icon{transform:scale(1.2) rotate(-5deg)}
-.app-btn .app-name{font-size:.82rem;font-weight:600;position:relative;z-index:1}
-.app-btn .app-tag{font-size:.65rem;color:var(--text-dim);position:relative;z-index:1}
+.app-btn:hover{border-color:var(--accent);background:var(--bg-2);transform:translateY(-2px)}
+.app-btn .app-icon{font-size:1.5rem}
+.app-btn .app-name{font-size:.78rem;font-weight:600}
+.app-btn .app-tag{font-size:.65rem;color:var(--text-dim)}
 
-/* === CONFIG CARDS === */
-.config-list{display:flex;flex-direction:column;gap:1rem}
+/* === CONFIG CARD === */
+.config-list{display:flex;flex-direction:column;gap:.85rem}
 .config-card{
-  background:rgba(19,24,38,.6);
-  backdrop-filter:blur(15px);
-  -webkit-backdrop-filter:blur(15px);
+  background:var(--bg-3);
   border:1px solid var(--border);
-  border-radius:16px;
-  padding:1.5rem;
-  transition:all .3s ease;
+  border-radius:14px;
+  padding:1rem;
+  transition:all .2s ease;
   position:relative;
   overflow:hidden;
-  animation:slideInLeft .6s ease-out backwards;
 }
-.config-card:nth-child(2){animation:slideInRight .6s ease-out .1s backwards}
-.config-card:nth-child(3){animation:slideInLeft .6s ease-out .2s backwards}
-.config-card::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:linear-gradient(180deg,var(--accent),var(--accent-2),var(--accent-3));
-  opacity:0;transition:opacity .3s ease;
+.config-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.config-card.featured{border-color:var(--accent);background:linear-gradient(135deg,var(--bg-3),rgba(0,230,118,.05))}
+.config-card.featured::before{
+  content:'';position:absolute;top:0;right:0;left:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),transparent);
 }
-.config-card:hover::before{opacity:1}
-.config-card:hover{transform:translateY(-3px);border-color:var(--accent-dim);box-shadow:0 15px 40px rgba(0,0,0,.3)}
-.config-card.featured{
-  border-color:var(--accent);
-  background:linear-gradient(135deg,rgba(0,255,157,.05),rgba(59,130,246,.05),rgba(168,85,247,.05));
-  background-size:200% 200%;
-  animation:slideInLeft .6s ease-out backwards,gradient-shift 8s ease infinite;
-}
-.config-card.featured::before{opacity:1}
-
-.config-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.85rem;flex-wrap:wrap;gap:.5rem}
-.config-name{font-weight:700;font-size:1.1rem;display:flex;align-items:center;gap:.5rem}
-.config-name .pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);animation:pulse 2s infinite}
-.config-protocols{display:flex;gap:.4rem;flex-wrap:wrap}
-.protocol-badge{
-  background:linear-gradient(135deg,var(--accent),var(--accent-2));
-  color:#fff;
-  padding:.25rem .65rem;
+.config-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem;flex-wrap:wrap;gap:.4rem}
+.config-name{font-weight:700;font-size:.95rem;display:flex;align-items:center;gap:.4rem}
+.config-name .live-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:pulse 2s infinite}
+.protocol-tag{
+  background:var(--accent-dim);
+  color:var(--accent);
+  padding:.2rem .6rem;
   border-radius:6px;
   font-size:.7rem;
   font-weight:700;
-  letter-spacing:.5px;
-  box-shadow:0 2px 10px rgba(0,255,157,.2);
+  border:1px solid var(--accent);
 }
-.protocol-badge.alt{background:linear-gradient(135deg,var(--accent-3),var(--accent-2))}
-
-.config-meta{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.85rem}
+.config-meta{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.7rem}
 .config-meta .tag{
-  background:rgba(5,7,13,.6);
+  background:var(--bg-2);
   color:var(--text-dim);
-  padding:.3rem .6rem;
-  border-radius:6px;
-  font-size:.72rem;
+  padding:.2rem .5rem;
+  border-radius:5px;
+  font-size:.68rem;
   font-family:'JetBrains Mono',monospace;
   border:1px solid var(--border);
-  display:inline-flex;align-items:center;gap:.3rem;
-  transition:all .2s ease;
 }
-.config-meta .tag:hover{color:var(--accent);border-color:var(--accent-dim)}
-.config-meta .tag .icon{font-size:.85rem}
-
-.config-stats{display:flex;gap:1rem;margin-bottom:.85rem;flex-wrap:wrap}
-.config-stat{display:flex;align-items:center;gap:.3rem;font-size:.8rem;color:var(--text-dim)}
-.config-stat .val{color:var(--accent);font-weight:700}
-
 .config-link{
-  background:rgba(5,7,13,.6);
+  background:var(--bg-2);
   border:1px solid var(--border);
   border-radius:8px;
-  padding:.65rem;
+  padding:.6rem;
   font-family:'JetBrains Mono',monospace;
-  font-size:.7rem;
+  font-size:.65rem;
   color:var(--text-dim);
   word-break:break-all;
-  max-height:60px;
+  max-height:50px;
   overflow-y:auto;
-  margin-bottom:.85rem;
+  margin-bottom:.7rem;
   cursor:pointer;
   transition:all .2s ease;
-  position:relative;
+  direction:ltr;
+  text-align:left;
 }
-.config-link::-webkit-scrollbar{width:4px}
-.config-link::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:2px}
 .config-link:hover{border-color:var(--accent);color:var(--text)}
-.config-link::after{
-  content:'👆 Click to copy';
-  position:absolute;
-  top:50%;right:8px;
-  transform:translateY(-50%);
-  background:var(--accent);color:#0a0e1a;
-  padding:.15rem .5rem;border-radius:4px;
-  font-size:.65rem;font-weight:700;
-  opacity:0;transition:opacity .2s ease;
-  pointer-events:none;
-}
-.config-link:hover::after{opacity:1}
-
+.config-link::-webkit-scrollbar{width:3px}
+.config-link::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
 .config-actions{display:flex;gap:.4rem;flex-wrap:wrap}
-
-/* === QR MODAL === */
-.qr-modal{
-  display:none;position:fixed;inset:0;
-  background:rgba(0,0,0,.85);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  z-index:100;
-  align-items:center;justify-content:center;
-  flex-direction:column;padding:1rem;
-  animation:fadeIn .3s ease;
+.btn{
+  background:var(--accent);color:#0d0f14;border:none;
+  padding:.5rem .85rem;border-radius:8px;
+  font-weight:700;cursor:pointer;font-size:.78rem;
+  transition:all .2s ease;
+  display:inline-flex;align-items:center;justify-content:center;gap:.3rem;
+  font-family:inherit;flex:1;min-width:0;
 }
-.qr-modal.show{display:flex}
-.qr-box{
-  background:#fff;padding:1.5rem;border-radius:16px;
-  max-width:90vw;
-  display:flex;flex-direction:column;align-items:center;gap:1rem;
-  animation:bounceIn .4s ease;
-  box-shadow:0 30px 80px rgba(0,0,0,.5);
-}
-.qr-title{color:#0a0e1a;font-weight:800;font-size:1.1rem;text-align:center}
-.qr-subtitle{color:#64748b;font-size:.8rem;margin-top:-.5rem}
-.qr-box canvas{background:#fff;padding:.5rem;border-radius:8px}
-.qr-close{
-  background:#0a0e1a;color:#fff;border:none;
-  padding:.6rem 1.5rem;border-radius:8px;
-  cursor:pointer;font-weight:700;font-family:inherit;
-  transition:transform .2s ease;
-}
-.qr-close:hover{transform:scale(1.05)}
+.btn:hover{background:var(--accent-2);transform:translateY(-1px);box-shadow:0 5px 15px var(--accent-glow)}
+.btn-secondary{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.btn-secondary:hover{background:var(--accent-dim)}
+.btn-ghost{background:var(--bg-2);color:var(--text);border:1px solid var(--border)}
+.btn-ghost:hover{background:var(--bg-3);border-color:var(--accent);box-shadow:none}
 
 /* === TOAST === */
 .toast{
-  position:fixed;bottom:2rem;left:50%;
-  transform:translateX(-50%) translateY(150px);
-  background:linear-gradient(135deg,var(--accent),var(--accent-2));
-  color:#fff;
-  padding:.85rem 1.5rem;
-  border-radius:12px;
-  font-weight:700;
-  box-shadow:0 15px 40px rgba(0,255,157,.4);
-  transition:transform .4s cubic-bezier(.68,-.55,.265,1.55);
+  position:fixed;bottom:1.5rem;left:50%;
+  transform:translateX(-50%) translateY(100px);
+  background:var(--accent);color:#0d0f14;
+  padding:.75rem 1.25rem;border-radius:10px;
+  font-weight:700;font-size:.85rem;
+  box-shadow:0 10px 30px var(--accent-glow);
+  transition:transform .3s cubic-bezier(.68,-.55,.265,1.55);
   z-index:200;
-  display:flex;align-items:center;gap:.5rem;
 }
 .toast.show{transform:translateX(-50%) translateY(0)}
 
 /* === FOOTER === */
-footer{text-align:center;margin-top:3rem;padding:2rem 1rem;color:var(--text-dim);font-size:.85rem}
-footer a{color:var(--accent);text-decoration:none;transition:color .2s ease}
-footer a:hover{color:var(--accent-2)}
-.footer-stats{display:flex;justify-content:center;gap:1.5rem;margin-top:1rem;flex-wrap:wrap}
-.footer-stat{font-size:.75rem;display:flex;align-items:center;gap:.3rem}
-.footer-stat .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+footer{
+  text-align:center;padding:1.5rem 1rem;
+  color:var(--text-dim);font-size:.75rem;
+}
+footer .heart{color:var(--red)}
 
 /* === RESPONSIVE === */
-@media(max-width:600px){
-  .logo{font-size:3.5rem}
-  h1{font-size:2rem}
-  .container{padding:1rem .75rem}
-  .subscribe-url{flex-direction:column;align-items:stretch}
-  .subscribe-url code{text-align:center;padding:.5rem 0;margin-bottom:.5rem}
-  .btn{width:100%;justify-content:center}
-  .config-actions .btn{flex:1;min-width:0}
-  .app-btn{padding:.7rem}
+@media(max-width:380px){
+  .container{padding:1rem .85rem}
+  .main-card,.config-section{padding:1.15rem}
+  .stats-grid{gap:.5rem}
+  .stat-box{padding:.7rem .3rem}
+  .stat-value{font-size:.9rem}
 }
 </style>
 </head>
 <body>
 
-<div class="bg-grid"></div>
-<div class="bg-orb bg-orb-1"></div>
-<div class="bg-orb bg-orb-2"></div>
-<div class="bg-orb bg-orb-3"></div>
-
 <div class="container">
 
-  <header>
-    <div class="logo-wrap">
-      <span class="logo">🛡️</span>
-      <span class="logo-rings"></span>
+  <!-- HEADER -->
+  <div class="app-header">
+    <div>
+      <div class="app-title">
+        <span class="badge-icon">🛡️</span>
+        اشتراک Warden VPN
+      </div>
+      <div class="server-info">cdn.daraflo.ir:2096</div>
     </div>
-    <h1>Warden VPN</h1>
-    <p class="subtitle">Premium VPN • Ultra-Fast • Unlimited Bandwidth</p>
-    <div class="badge-row">
-      <span class="badge live"><span class="dot"></span> Live & Online</span>
-      <span class="badge">🇩🇪 Germany</span>
-      <span class="badge">⚡ Low Latency</span>
-      <span class="badge">🔒 End-to-End Encrypted</span>
-    </div>
-  </header>
-
-  <div class="stats-bar">
-    <div class="stat">
-      <div class="stat-val">2</div>
-      <div class="stat-label">Active Servers</div>
-    </div>
-    <div class="stat">
-      <div class="stat-val">99.9%</div>
-      <div class="stat-label">Uptime</div>
-    </div>
-    <div class="stat">
-      <div class="stat-val">∞</div>
-      <div class="stat-label">Bandwidth</div>
-    </div>
-    <div class="stat">
-      <div class="stat-val">&lt;50ms</div>
-      <div class="stat-label">Ping</div>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="refreshPage()" title="بروزرسانی">🔄</button>
+      <button class="icon-btn" onclick="sharePage()" title="اشتراک‌گذاری">🔗</button>
     </div>
   </div>
 
-  <div class="section">
-    <h2 class="section-title">📲 One-Click Import</h2>
-    <p class="section-sub">Add all configs to your VPN app with a single tap</p>
+  <!-- MAIN CARD -->
+  <div class="main-card">
 
-    <div class="subscribe-box">
-      <h3>🔗 Subscription URL</h3>
-      <div class="subscribe-url">
-        <code id="subUrl">https://cdn.daraflo.ir:2096/sub/sub_f487ed87-b45c-4cc4-017a-d10f80a7af95</code>
-        <button class="btn btn-small" onclick="copyText('subUrl', this)">📋 Copy</button>
+    <!-- STATUS -->
+    <div class="status-row">
+      <span class="status-label">وضعیت اشتراک</span>
+      <span class="status-badge">فعال ✓</span>
+    </div>
+
+    <!-- SUBSCRIPTION ID -->
+    <div class="sub-id-row">
+      <span class="sub-id-label">شناسه اشتراک:</span>
+      <span class="sub-id-value" onclick="copyText('subId', this)" id="subId" title="کلیک برای کپی">sub_f487ed87-b45c-4cc4-017a-d10f80a7af95</span>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-icon">📥</div>
+        <div class="stat-value" id="statDown">126.69</div>
+        <div class="stat-unit">KB دانلود</div>
       </div>
-
-      <div class="app-buttons">
-        <a class="app-btn" href="v2rayng://install-config?url=https%3A%2F%2Fcdn.daraflo.ir%3A2096%2Fsub%2Fsub_f487ed87-b45c-4cc4-017a-d10f80a7af95">
-          <span class="app-icon">📱</span>
-          <span class="app-name">v2rayNG</span>
-          <span class="app-tag">Android</span>
-        </a>
-        <a class="app-btn" href="clash://install-config?url=https%3A%2F%2Fcdn.daraflo.ir%3A2096%2Fsub%2Fsub_f487ed87-b45c-4cc4-017a-d10f80a7af95">
-          <span class="app-icon">🚀</span>
-          <span class="app-name">Hiddify</span>
-          <span class="app-tag">Multi-Platform</span>
-        </a>
-        <a class="app-btn" href="https://apps.apple.com/app/v2box-v2ray-client/id6446448075">
-          <span class="app-icon">🍎</span>
-          <span class="app-name">V2Box</span>
-          <span class="app-tag">iOS / Mac</span>
-        </a>
-        <a class="app-btn" href="https://github.com/2dust/v2rayN/releases">
-          <span class="app-icon">💻</span>
-          <span class="app-name">v2rayN</span>
-          <span class="app-tag">Windows</span>
-        </a>
+      <div class="stat-box">
+        <div class="stat-icon">📤</div>
+        <div class="stat-value" id="statUp">35.97</div>
+        <div class="stat-unit">KB آپلود</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-icon">📊</div>
+        <div class="stat-value" id="statTotal">162.66</div>
+        <div class="stat-unit">KB کل</div>
       </div>
     </div>
+
+    <!-- PROGRESS -->
+    <div class="progress-section">
+      <div class="progress-header">
+        <span class="progress-label">مصرف حجم</span>
+        <span class="progress-values">
+          <span class="used" id="usedVal">162.66 KB</span>
+          <span class="total"> / 5.00 GB</span>
+        </span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+      <div class="progress-meta">
+        <span><span class="percent-used" id="percentUsed">0%</span> استفاده شده</span>
+        <span class="time-remaining">⏱ <span id="timeRemaining">23h</span></span>
+      </div>
+    </div>
+
+    <!-- DATES -->
+    <div class="dates-grid">
+      <div class="date-box">
+        <div class="date-label">🕐 آخرین فعالیت</div>
+        <div class="date-value" id="lastActivity">—</div>
+      </div>
+      <div class="date-box">
+        <div class="date-label">📅 تاریخ پایان</div>
+        <div class="date-value" id="endDate">—</div>
+      </div>
+    </div>
+
+    <!-- SUB LINK -->
+    <div class="sub-link-box">
+      <div class="sub-link-info">
+        <div class="sub-link-title">🔗 لینک اشتراک</div>
+        <div class="sub-link-url" id="subLink">cdn.daraflo.ir:2096/sub/sub_f487ed87...</div>
+      </div>
+      <div class="sub-badge">SUB</div>
+    </div>
+
   </div>
 
-  <div class="section">
-    <h2 class="section-title">📡 Available Configurations</h2>
-    <p class="section-sub">Click any config to copy. For best experience, use the subscription URL above.</p>
+  <!-- CONFIG SECTION -->
+  <div class="config-section">
+    <h2>📲 اتصال سریع</h2>
+    <div class="app-buttons">
+      <a class="app-btn" href="v2rayng://install-config?url=https%3A%2F%2Fcdn.daraflo.ir%3A2096%2Fsub%2Fsub_f487ed87-b45c-4cc4-017a-d10f80a7af95">
+        <span class="app-icon">📱</span>
+        <span class="app-name">v2rayNG</span>
+        <span class="app-tag">Android</span>
+      </a>
+      <a class="app-btn" href="clash://install-config?url=https%3A%2F%2Fcdn.daraflo.ir%3A2096%2Fsub%2Fsub_f487ed87-b45c-4cc4-017a-d10f80a7af95">
+        <span class="app-icon">🚀</span>
+        <span class="app-name">Hiddify</span>
+        <span class="app-tag">Multi</span>
+      </a>
+      <a class="app-btn" href="https://apps.apple.com/app/v2box-v2ray-client/id6446448075">
+        <span class="app-icon">🍎</span>
+        <span class="app-name">V2Box</span>
+        <span class="app-tag">iOS</span>
+      </a>
+      <a class="app-btn" href="https://github.com/2dust/v2rayN/releases">
+        <span class="app-icon">💻</span>
+        <span class="app-name">v2rayN</span>
+        <span class="app-tag">Windows</span>
+      </a>
+    </div>
 
+    <h2 style="margin-top:1.5rem">📡 کانفیگ‌های موجود</h2>
     <div class="config-list">
 
       <div class="config-card featured">
         <div class="config-header">
           <span class="config-name">
-            <span class="pulse-dot"></span>
+            <span class="live-dot"></span>
             ⏩ BetForward
-            <span class="protocol-badge">⭐ FEATURED</span>
+            <span style="background:var(--accent);color:#0d0f14;padding:.1rem .5rem;border-radius:4px;font-size:.65rem;font-weight:800">FEATURED</span>
           </span>
-          <div class="config-protocols">
-            <span class="protocol-badge">VLESS</span>
-          </div>
+          <span class="protocol-tag">VLESS</span>
         </div>
         <div class="config-meta">
-          <span class="tag"><span class="icon">🌐</span> snapp.ir:2087</span>
-          <span class="tag"><span class="icon">🔒</span> TLS 1.3</span>
-          <span class="tag"><span class="icon">🛰️</span> WebSocket</span>
-          <span class="tag"><span class="icon">🇩🇪</span> Germany</span>
-          <span class="tag"><span class="icon">📊</span> 5.00 GB</span>
-          <span class="tag"><span class="icon">⏱️</span> 23H Valid</span>
-        </div>
-        <div class="config-stats">
-          <span class="config-stat">📶 Ping: <span class="val">~45ms</span></span>
-          <span class="config-stat">🚀 Speed: <span class="val">Ultra</span></span>
-          <span class="config-stat">🛡️ Status: <span class="val">Active</span></span>
+          <span class="tag">🌐 snapp.ir:2087</span>
+          <span class="tag">🔒 TLS 1.3</span>
+          <span class="tag">🛰️ WebSocket</span>
+          <span class="tag">🇩🇪 Germany</span>
+          <span class="tag">📊 5GB</span>
         </div>
         <div class="config-link" onclick="copyConfig(0, this)">vless://f487ed87-b45c-4cc4-017a-d10f80a7af95@snapp.ir:2087?alpn=h2%2Chttp%2F1.1%2Ch3&encryption=none&fp=chrome&host=cdn.daraflo.ir&path=%2FBetForward&security=tls&sni=cdn.daraflo.ir&type=ws#%E2%8F%A9%EF%B8%8FBetForward-5.00GB%F0%9F%93%8A-23H%E2%8F%B3</div>
         <div class="config-actions">
-          <button class="btn btn-small" onclick="copyConfig(0, this)">📋 Copy</button>
-          <button class="btn btn-small btn-secondary" onclick="showQR(0)">📷 QR</button>
-          <button class="btn btn-small btn-ghost" onclick="openInApp(0)">🚀 Open</button>
+          <button class="btn" onclick="copyConfig(0, this)">📋 کپی</button>
+          <button class="btn btn-secondary" onclick="showQR(0)">📷 QR</button>
+          <button class="btn btn-ghost" onclick="openInApp(0)">🚀 باز</button>
         </div>
       </div>
 
       <div class="config-card">
         <div class="config-header">
           <span class="config-name">
-            <span class="pulse-dot"></span>
-            ⏩ BetForward (Backup)
+            <span class="live-dot"></span>
+            ⏩ BetForward (پشتیبان)
           </span>
-          <div class="config-protocols">
-            <span class="protocol-badge alt">VLESS</span>
-          </div>
+          <span class="protocol-tag">VLESS</span>
         </div>
         <div class="config-meta">
-          <span class="tag"><span class="icon">🌐</span> snapp.ir:2087</span>
-          <span class="tag"><span class="icon">🔒</span> TLS 1.3</span>
-          <span class="tag"><span class="icon">🛰️</span> WebSocket</span>
-          <span class="tag"><span class="icon">🇩🇪</span> Germany</span>
+          <span class="tag">🌐 snapp.ir:2087</span>
+          <span class="tag">🔒 TLS 1.3</span>
+          <span class="tag">🛰️ WebSocket</span>
+          <span class="tag">🇩🇪 Germany</span>
         </div>
         <div class="config-link" onclick="copyConfig(1, this)">vless://f487ed87-b45c-4cc4-017a-d10f80a7af95@snapp.ir:2087?alpn=h2%2Chttp%2F1.1%2Ch3&encryption=none&fp=chrome&host=cdn.daraflo.ir&path=%2FBetForward&security=tls&sni=cdn.daraflo.ir&type=ws#%E2%8F%A9%EF%B8%8FBetForward-5.00GB%F0%9F%93%8A-23H%E2%8F%B3</div>
         <div class="config-actions">
-          <button class="btn btn-small" onclick="copyConfig(1, this)">📋 Copy</button>
-          <button class="btn btn-small btn-secondary" onclick="showQR(1)">📷 QR</button>
-          <button class="btn btn-small btn-ghost" onclick="openInApp(1)">🚀 Open</button>
-        </div>
-      </div>
-
-      <div class="config-card" style="border-style:dashed;text-align:center;background:rgba(19,24,38,.3)">
-        <div class="config-header" style="justify-content:center">
-          <span class="config-name">➕ Add More Configs</span>
-        </div>
-        <p style="color:var(--text-dim);font-size:.85rem;margin:.5rem 0">Have additional configs (different servers, protocols, locations)?<br>Send them to me and I'll add them to this panel.</p>
-        <div style="margin-top:1rem">
-          <span class="protocol-badge alt">📩 Custom</span>
+          <button class="btn" onclick="copyConfig(1, this)">📋 کپی</button>
+          <button class="btn btn-secondary" onclick="showQR(1)">📷 QR</button>
+          <button class="btn btn-ghost" onclick="openInApp(1)">🚀 باز</button>
         </div>
       </div>
 
@@ -560,55 +582,99 @@ footer a:hover{color:var(--accent-2)}
   </div>
 
   <footer>
-    <p>🛡️ <strong>Warden VPN</strong> — Premium Privacy & Freedom</p>
-    <p style="margin-top:.5rem">Powered by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a> • Subscription via <a href="https://cdn.daraflo.ir" target="_blank">daraflo</a></p>
-    <div class="footer-stats">
-      <span class="footer-stat"><span class="dot"></span> All systems operational</span>
-      <span class="footer-stat">⚡ Updated: Today</span>
-    </div>
+    ساخته شده با <span class="heart">❤️</span> توسط <strong>Warden VPN</strong>
   </footer>
 
 </div>
 
-<div class="qr-modal" id="qrModal" onclick="if(event.target===this)closeQR()">
-  <div class="qr-box">
-    <div class="qr-title" id="qrTitle">Config QR Code</div>
-    <div class="qr-subtitle">Scan with your VPN app</div>
-    <div id="qrContainer"></div>
-    <button class="qr-close" onclick="closeQR()">✕ Close</button>
-  </div>
-</div>
-
-<div class="toast" id="toast">✅ Copied to clipboard!</div>
+<div class="toast" id="toast">✅ کپی شد!</div>
 
 <script>
+const subUrl = "https://cdn.daraflo.ir:2096/sub/sub_f487ed87-b45c-4cc4-017a-d10f80a7af95";
+const subId = "sub_f487ed87-b45c-4cc4-017a-d10f80a7af95";
+const totalBytes = 5 * 1024 * 1024 * 1024; // 5 GB
+const usedBytes = 162.66 * 1024; // 162.66 KB
+const validHours = 23;
+const startTime = Date.now();
+
 const configs = [
   "vless://f487ed87-b45c-4cc4-017a-d10f80a7af95@snapp.ir:2087?alpn=h2%2Chttp%2F1.1%2Ch3&encryption=none&fp=chrome&host=cdn.daraflo.ir&path=%2FBetForward&security=tls&sni=cdn.daraflo.ir&type=ws#%E2%8F%A9%EF%B8%8FBetForward-5.00GB%F0%9F%93%8A-23H%E2%8F%B3",
   "vless://f487ed87-b45c-4cc4-017a-d10f80a7af95@snapp.ir:2087?alpn=h2%2Chttp%2F1.1%2Ch3&encryption=none&fp=chrome&host=cdn.daraflo.ir&path=%2FBetForward&security=tls&sni=cdn.daraflo.ir&type=ws#%E2%8F%A9%EF%B8%8FBetForward-5.00GB%F0%9F%93%8A-23H%E2%8F%B3"
 ];
-const names = ["⏩ BetForward - Featured", "⏩ BetForward - Backup"];
+const names = ["⏩ BetForward - اصلی", "⏩ BetForward - پشتیبان"];
 
+// === INIT ===
+function init() {
+  // Set sub link display
+  document.getElementById('subLink').innerText = subUrl;
+  document.getElementById('subLink').title = subUrl;
+
+  // Calculate and display stats
+  const down = 126.69, up = 35.97, total = 162.66;
+  document.getElementById('statDown').innerText = down.toFixed(2);
+  document.getElementById('statUp').innerText = up.toFixed(2);
+  document.getElementById('statTotal').innerText = total.toFixed(2);
+
+  // Progress bar
+  const percent = (usedBytes / totalBytes * 100);
+  setTimeout(() => {
+    document.getElementById('progressFill').style.width = percent.toFixed(4) + '%';
+  }, 300);
+  document.getElementById('percentUsed').innerText = percent.toFixed(2) + '%';
+  document.getElementById('usedVal').innerText = '162.66 KB';
+
+  // Dates (Persian format)
+  const now = new Date();
+  const endDate = new Date(now.getTime() + validHours * 60 * 60 * 1000);
+  document.getElementById('lastActivity').innerText = formatPersianDate(now);
+  document.getElementById('endDate').innerText = formatPersianDate(endDate);
+
+  // Countdown timer
+  updateCountdown();
+  setInterval(updateCountdown, 60000); // every minute
+}
+
+function formatPersianDate(d) {
+  // Simple format: YYYY/MM/DD HH:MM
+  const pad = n => n.toString().padStart(2, '0');
+  return `${d.getFullYear()}/${pad(d.getMonth()+1)}/${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+function updateCountdown() {
+  const elapsedHours = (Date.now() - startTime) / (1000 * 60 * 60);
+  const remaining = Math.max(0, validHours - elapsedHours);
+  const h = Math.floor(remaining);
+  const m = Math.floor((remaining - h) * 60);
+  const el = document.getElementById('timeRemaining');
+  if (el) el.innerText = h > 0 ? `${h}h ${m}m` : `${m}m`;
+}
+
+// === ACTIONS ===
 function copyText(elementId, btn) {
   const el = document.getElementById(elementId);
   const text = el.innerText || el.textContent;
-  navigator.clipboard.writeText(text).then(() => showToast(btn, '✅ Copied URL!'));
+  navigator.clipboard.writeText(text).then(() => showToast(btn, '✅ کپی شد!'));
 }
 
 function copyConfig(idx, btn) {
-  navigator.clipboard.writeText(configs[idx]).then(() => showToast(btn, '✅ Config copied!'));
+  navigator.clipboard.writeText(configs[idx]).then(() => showToast(btn, '✅ کانفیگ کپی شد!'));
+}
+
+function copySubUrl(btn) {
+  navigator.clipboard.writeText(subUrl).then(() => showToast(btn, '✅ لینک اشتراک کپی شد!'));
 }
 
 function showToast(btn, msg) {
   const toast = document.getElementById('toast');
-  toast.innerHTML = msg;
+  toast.innerText = msg;
   toast.classList.add('show');
-  const orig = btn ? btn.innerHTML : '';
+  const orig = btn ? btn.innerText : '';
   if (btn) {
-    btn.innerHTML = msg;
-    setTimeout(() => { btn.innerHTML = orig; }, 1500);
+    btn.innerText = msg;
+    setTimeout(() => { btn.innerText = orig; }, 1500);
   }
   clearTimeout(window._toastT);
-  window._toastT = setTimeout(() => toast.classList.remove('show'), 2500);
+  window._toastT = setTimeout(() => toast.classList.remove('show'), 2200);
 }
 
 function openInApp(idx) {
@@ -617,47 +683,42 @@ function openInApp(idx) {
 }
 
 function showQR(idx) {
-  const modal = document.getElementById('qrModal');
-  const title = document.getElementById('qrTitle');
-  const container = document.getElementById('qrContainer');
-  title.innerText = names[idx];
-  container.innerHTML = '<canvas id="qrCanvas"></canvas>';
-  modal.classList.add('show');
+  const modal = document.createElement('div');
+  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);z-index:100;display:flex;align-items:center;justify-content:center;padding:1rem';
+  modal.onclick = e => { if (e.target === modal) document.body.removeChild(modal); };
+  
+  const box = document.createElement('div');
+  box.style.cssText = 'background:#fff;padding:1.5rem;border-radius:16px;display:flex;flex-direction:column;align-items:center;gap:1rem;max-width:90vw';
+  box.innerHTML = `<div style="color:#0d0f14;font-weight:800;font-size:1.05rem">${names[idx]}</div><canvas id="qrCanvas"></canvas><button onclick="document.body.removeChild(this.parentElement.parentElement)" style="background:#0d0f14;color:#fff;border:none;padding:.6rem 1.5rem;border-radius:8px;cursor:pointer;font-weight:700;font-family:inherit">✕ بستن</button>`;
+  modal.appendChild(box);
+  document.body.appendChild(modal);
 
   if (typeof QRCode === 'undefined') {
     const script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js';
-    script.onload = () => generateQR(configs[idx]);
-    script.onerror = () => { container.innerHTML = '<p style="color:#ef4444">Failed to load QR library</p>'; };
+    script.onload = () => QRCode.toCanvas(document.getElementById('qrCanvas'), configs[idx], {width: 260, margin: 1});
     document.head.appendChild(script);
   } else {
-    generateQR(configs[idx]);
+    QRCode.toCanvas(document.getElementById('qrCanvas'), configs[idx], {width: 260, margin: 1});
   }
 }
 
-function generateQR(text) {
-  QRCode.toCanvas(document.getElementById('qrCanvas'), text, {width: 280, margin: 1, color: {dark: '#0a0e1a', light: '#fff'}}, err => {
-    if (err) document.getElementById('qrContainer').innerHTML = 'Error: ' + err;
-  });
+function refreshPage() { location.reload(); }
+function sharePage() {
+  if (navigator.share) {
+    navigator.share({title: 'Warden VPN', url: window.location.href});
+  } else {
+    navigator.clipboard.writeText(window.location.href);
+    showToast(null, '✅ لینک کپی شد!');
+  }
 }
 
-function closeQR() {
-  document.getElementById('qrModal').classList.remove('show');
-}
+// Run
+init();
 
-// Keyboard shortcuts
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeQR();
-});
-
-// Parallax on mouse move (subtle)
-document.addEventListener('mousemove', e => {
-  const x = (e.clientX / window.innerWidth - 0.5) * 20;
-  const y = (e.clientY / window.innerHeight - 0.5) * 20;
-  document.querySelectorAll('.bg-orb').forEach((orb, i) => {
-    const speed = (i + 1) * 0.3;
-    orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-  });
+// Subscribe ID click handler
+document.getElementById('subId').addEventListener('click', function() {
+  copyText('subId', null);
 });
 </script>
 </body>
