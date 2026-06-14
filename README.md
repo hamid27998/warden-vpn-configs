@@ -1,27 +1,48 @@
-# 🛡️ Warden VPN — Config Panel
+# 🛡️ Warden VPN Panel
 
-Personal VPN configuration panel for the **Germany 🇩🇪** server, with all major protocols.
+یه پنل مدرن و حرفه‌ای برای مدیریت اشتراک VPN، با الهام از [BPB Worker Panel](https://github.com/bia-pain-bache/BPB-Worker-Panel).
 
-> Template — replace sample configs with your real server details in `configs/`.
+## ✨ ویژگی‌ها
 
-## 🔐 Available Protocols
+- 📊 **Real-time usage tracking** — هر ثانیه آپدیت
+- 🎨 **طراحی مدرن** — Glassmorphism + Gradient
+- 🌈 **نوار مصرف چندرنگ** — سبز → آبی → بنفش
+- 📱 **Multi-platform** — Android, iOS, Windows, Mac
+- 🔗 **Subscription link** — یک کلیک کپی
+- 📷 **QR Code** برای هر کانفیگ
+- 🔄 **Reset & Pause** controls
+- 🟢🟡🔴 **رنگ هوشمند** مصرف
 
-| Protocol | File | Best for |
-|----------|------|----------|
-| VLESS + Reality | `configs/vless-reality.txt` | 🏆 Best for Iran, undetectable |
-| VLESS + WS | `configs/vless-ws.txt` | CDN-friendly, bypass DPI |
-| VMess + WS | `configs/vmess-ws.txt` | Classic, widely supported |
-| Trojan | `configs/trojan.txt` | Fast, simple, TLS-based |
-| Shadowsocks | `configs/shadowsocks.txt` | Lightweight, fast |
-| WireGuard | `configs/wireguard.conf` | Modern, ultra-fast |
+## 🚀 دمو زنده
 
-## 🌐 Web Panel
+🔗 **[hamid27998.github.io/warden-vpn-configs](https://hamid27998.github.io/warden-vpn-configs/)**
 
-Once GitHub Pages is enabled:
-`https://hamid27998.github.io/warden-vpn-configs/`
+## 📸 اسکرین‌شات
 
-## 📲 Subscribe URL
+- 🌑 تم تیره با گرادینت‌های سبز/آبی/بنفش
+- 💎 کارت‌های شیشه‌ای (Glassmorphism)
+- ✨ انیمیشن‌های نرم و حرفه‌ای
+- 📱 ریسپانسیو کامل برای موبایل
 
-`https://hamid27998.github.io/warden-vpn-configs/subscription.txt`
+## 🛠️ تکنولوژی
 
-Built with ❤️ by Hamid
+- HTML5 + CSS3 (بدون فریمورک)
+- Vanilla JavaScript
+- Google Fonts (Vazirmatn + JetBrains Mono)
+- QRCode.js
+- GitHub Pages برای hosting
+
+## 📚 منابع مرتبط
+
+- 🔗 [BPB Worker Panel](https://github.com/bia-pain-bache/BPB-Worker-Panel) — پنل اصلی BPB
+- 📖 [راهنمای دیپلوی BPB](./bpb-panel/README.md) — راهنمای کامل
+
+## ⚠️ نکته مهم
+
+این پنل **کانفیگ جدید نمی‌سازه** — فقط کانفیگ‌های فعلی (از `cdn.daraflo.ir:2096`) رو نمایش می‌ده.
+
+برای ساخت کانفیگ جدید و رایگان، **[BPB Panel](./bpb-panel/README.md)** رو تو Cloudflare دیپلوی کن.
+
+## 📄 لایسنس
+
+MIT
