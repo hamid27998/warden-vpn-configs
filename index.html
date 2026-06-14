@@ -2,394 +2,380 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta name="theme-color" content="#0d0f14" />
-<title>Warden VPN — پنل اشتراک</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<meta name="theme-color" content="#0a0e1a" />
+<title>🛡️ Warden VPN Panel — BPB Style</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* === COLORS === */
-  --bg-0:#0a0c11;
-  --bg-1:#10131a;
-  --bg-2:#171b25;
-  --bg-3:#1f2330;
-  --bg-4:#272c3a;
-  --border:#262b38;
-  --border-light:#353b4a;
-  --accent:#22d97a;
-  --accent-2:#16c069;
-  --accent-3:#0fa858;
-  --accent-dim:rgba(34,217,122,.12);
-  --accent-glow:rgba(34,217,122,.35);
-  --text:#e8eaf0;
-  --text-2:#b8bdc8;
-  --text-dim:#8b909e;
-  --text-mute:#5d6270;
+  --bg-0:#06080d;
+  --bg-1:#0a0e16;
+  --bg-2:#10141d;
+  --bg-3:#161b27;
+  --bg-4:#1d2331;
+  --border:#1f2533;
+  --border-2:#2a3140;
+  --accent:#00d97e;
+  --accent-2:#00b368;
+  --accent-3:#009254;
+  --accent-dim:rgba(0,217,126,.1);
+  --accent-glow:rgba(0,217,126,.4);
+  --cyan:#00d4ff;
+  --purple:#a855f7;
+  --pink:#ec4899;
   --orange:#ff9d3d;
-  --orange-dim:rgba(255,157,61,.12);
-  --blue:#4a9eff;
-  --blue-dim:rgba(74,158,255,.12);
   --red:#ff4d6d;
-  --red-dim:rgba(255,77,109,.12);
   --yellow:#fbbf24;
-  --purple:#a78bfa;
-  --grad-1:linear-gradient(135deg,#22d97a 0%,#16c069 50%,#0fa858 100%);
-  --grad-2:linear-gradient(135deg,#22d97a 0%,#4a9eff 50%,#a78bfa 100%);
-  --shadow-sm:0 2px 8px rgba(0,0,0,.2);
-  --shadow-md:0 8px 24px rgba(0,0,0,.3);
-  --shadow-lg:0 20px 50px rgba(0,0,0,.4);
+  --blue:#4a9eff;
+  --text:#f1f5f9;
+  --text-2:#cbd5e1;
+  --text-3:#94a3b8;
+  --text-4:#64748b;
+  --text-mute:#475569;
+  --grad-1:linear-gradient(135deg,#00d97e,#00b368);
+  --grad-2:linear-gradient(135deg,#00d97e,#00d4ff,#a855f7);
+  --grad-3:linear-gradient(135deg,#00d97e 0%,#00d4ff 50%,#a855f7 100%);
+  --grad-4:linear-gradient(135deg,#1d2331,#0a0e16);
+  --shadow-1:0 2px 8px rgba(0,0,0,.2);
+  --shadow-2:0 8px 24px rgba(0,0,0,.3);
+  --shadow-3:0 20px 50px rgba(0,0,0,.4);
   --shadow-glow:0 0 30px var(--accent-glow);
 }
 
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
 body{
-  font-family:'Vazirmatn',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-family:'Vazirmatn',-apple-system,BlinkMacSystemFont,sans-serif;
   background:var(--bg-0);
   color:var(--text);
   min-height:100vh;
   -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  font-feature-settings:"ss01","ss02";
+  font-feature-settings:"ss01";
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%,rgba(34,217,122,.08) 0%,transparent 50%),
-    radial-gradient(ellipse 60% 40% at 80% 110%,rgba(74,158,255,.05) 0%,transparent 50%);
+    radial-gradient(ellipse 100% 60% at 50% -10%,rgba(0,217,126,.1) 0%,transparent 50%),
+    radial-gradient(ellipse 60% 50% at 90% 100%,rgba(168,85,247,.06) 0%,transparent 50%),
+    radial-gradient(ellipse 50% 40% at 0% 50%,rgba(0,212,255,.04) 0%,transparent 50%);
   background-attachment:fixed;
   overflow-x:hidden;
 }
 
-/* === SCROLLBAR === */
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:var(--bg-1)}
 ::-webkit-scrollbar-thumb{background:var(--bg-4);border-radius:3px}
 ::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 
-/* === LAYOUT === */
-.app{max-width:480px;margin:0 auto;padding:1rem;min-height:100vh;position:relative}
-
-/* === HEADER === */
-.app-header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:1.25rem 0;
-  animation:fadeInDown .6s ease;
+/* === BG EFFECTS === */
+.bg-grid{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,217,126,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,217,126,.03) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse at center,#000 20%,transparent 70%);
+  -webkit-mask-image:radial-gradient(ellipse at center,#000 20%,transparent 70%);
 }
-.brand{display:flex;align-items:center;gap:.75rem}
-.brand-icon{
-  width:42px;height:42px;border-radius:12px;
+.bg-glow{
+  position:fixed;width:600px;height:600px;border-radius:50%;
+  filter:blur(100px);opacity:.3;pointer-events:none;z-index:0;
+  background:radial-gradient(circle,var(--accent) 0%,transparent 70%);
+  top:-200px;left:-200px;
+  animation:float 15s ease-in-out infinite;
+}
+@keyframes float{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(100px,50px) scale(1.1)}
+  66%{transform:translate(-50px,100px) scale(.9)}
+}
+
+/* === LAYOUT === */
+.app{
+  max-width:1100px;margin:0 auto;padding:1.5rem 1.25rem;
+  min-height:100vh;position:relative;z-index:1;
+}
+
+/* === TOP NAV === */
+.top-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.5rem;
+  background:rgba(13,17,27,.6);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid var(--border);
+  border-radius:18px;
+  margin-bottom:1.5rem;
+  animation:slideDown .5s ease;
+}
+@keyframes slideDown{from{opacity:0;transform:translateY(-15px)}to{opacity:1;transform:translateY(0)}}
+.brand{display:flex;align-items:center;gap:.85rem}
+.brand-logo{
+  width:46px;height:46px;border-radius:14px;
   background:var(--grad-1);
   display:flex;align-items:center;justify-content:center;
-  font-size:1.3rem;
+  font-size:1.4rem;color:#06080d;
   box-shadow:var(--shadow-glow);
   position:relative;
-  overflow:hidden;
 }
-.brand-icon::after{
+.brand-logo::after{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(255,255,255,.2) 0%,transparent 50%);
+  background:linear-gradient(135deg,rgba(255,255,255,.25) 0%,transparent 50%);
+  border-radius:14px;
 }
-.brand-text{display:flex;flex-direction:column;gap:.15rem}
-.brand-name{font-size:1.1rem;font-weight:800;letter-spacing:-.01em}
-.brand-sub{font-size:.68rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;display:flex;align-items:center;gap:.3rem}
-.brand-sub .live{color:var(--accent);font-weight:700}
-.brand-sub .live::before{
-  content:'';display:inline-block;width:5px;height:5px;border-radius:50%;
-  background:var(--accent);box-shadow:0 0 6px var(--accent);
-  animation:pulse 1.5s infinite;margin-left:.3rem;
+.brand-text h1{
+  font-size:1.2rem;font-weight:800;
+  background:var(--grad-1);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  letter-spacing:-.01em;
 }
-.header-actions{display:flex;gap:.4rem}
-.icon-btn{
-  width:38px;height:38px;border-radius:10px;
-  background:var(--bg-2);
-  border:1px solid var(--border);
-  color:var(--text-2);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:1rem;
-  transition:all .2s cubic-bezier(.4,0,.2,1);
-  position:relative;
+.brand-text p{
+  font-size:.7rem;color:var(--text-3);
+  display:flex;align-items:center;gap:.4rem;margin-top:.1rem;
+  font-family:'JetBrains Mono',monospace;
 }
-.icon-btn:hover{color:var(--accent);border-color:var(--accent);background:var(--bg-3);transform:translateY(-1px)}
-.icon-btn:active{transform:translateY(0) scale(.95)}
-.icon-btn.active{color:var(--accent);border-color:var(--accent);background:var(--accent-dim)}
-
-/* === HERO CARD === */
-.hero-card{
-  background:linear-gradient(180deg,var(--bg-2) 0%,var(--bg-1) 100%);
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:0;
-  margin-bottom:1rem;
-  position:relative;
-  overflow:hidden;
-  box-shadow:var(--shadow-md);
-  animation:slideUp .7s cubic-bezier(.16,1,.3,1);
-}
-.hero-card::before{
-  content:'';position:absolute;top:0;right:0;left:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--accent),transparent);
-  opacity:.6;
-}
-.hero-card::after{
-  content:'';position:absolute;
-  top:-50%;right:-20%;width:300px;height:300px;
-  background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);
-  opacity:.15;pointer-events:none;
-}
-
-.hero-header{
-  padding:1.5rem 1.5rem 1rem;
-  display:flex;align-items:center;justify-content:space-between;
-  position:relative;z-index:1;
-}
-.hero-title{display:flex;flex-direction:column;gap:.25rem}
-.hero-label{font-size:.72rem;color:var(--text-dim);font-weight:500}
-.hero-value{font-size:1.5rem;font-weight:800;letter-spacing:-.02em;font-family:'JetBrains Mono',monospace}
-.hero-value .unit{font-size:.85rem;color:var(--text-dim);font-weight:500;margin-right:.25rem}
-.status-pill{
-  display:inline-flex;align-items:center;gap:.4rem;
-  padding:.4rem .85rem;
-  background:var(--accent-dim);
-  border:1px solid var(--accent);
-  color:var(--accent);
-  border-radius:999px;
-  font-size:.75rem;font-weight:700;
-  box-shadow:0 0 16px var(--accent-glow);
-  animation:glow-pulse 2.5s ease-in-out infinite;
-}
-.status-pill::before{
-  content:'';width:6px;height:6px;border-radius:50%;
+.status-dot{
+  width:7px;height:7px;border-radius:50%;
   background:var(--accent);
   box-shadow:0 0 8px var(--accent);
   animation:pulse 1.5s infinite;
 }
+.nav-actions{display:flex;gap:.5rem;align-items:center}
+.nav-btn{
+  height:38px;padding:0 .9rem;
+  background:var(--bg-2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  color:var(--text-2);
+  font-family:inherit;font-size:.8rem;font-weight:600;
+  cursor:pointer;
+  display:inline-flex;align-items:center;gap:.4rem;
+  transition:all .2s ease;
+}
+.nav-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--bg-3)}
+.nav-btn.primary{background:var(--grad-1);color:#06080d;border-color:transparent}
+.nav-btn.primary:hover{box-shadow:0 5px 20px var(--accent-glow);transform:translateY(-1px)}
+
+/* === GRID === */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 380px;
+  gap:1.25rem;
+}
+@media(max-width:880px){
+  .grid{grid-template-columns:1fr}
+}
+
+/* === CARDS === */
+.card{
+  background:linear-gradient(180deg,rgba(22,27,39,.7),rgba(13,17,27,.5));
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:1.5rem;
+  margin-bottom:1.25rem;
+  position:relative;
+  overflow:hidden;
+  animation:slideUp .6s cubic-bezier(.16,1,.3,1) backwards;
+}
+.card.delay-1{animation-delay:.05s}
+.card.delay-2{animation-delay:.1s}
+.card.delay-3{animation-delay:.15s}
+.card.delay-4{animation-delay:.2s}
+.card.delay-5{animation-delay:.25s}
+.card.delay-6{animation-delay:.3s}
+.card::before{
+  content:'';position:absolute;top:0;right:0;left:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:.4;
+}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.2)}}
+
+/* === CARD HEADER === */
+.card-head{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem;
+}
+.card-title{
+  font-size:1rem;font-weight:700;
+  display:flex;align-items:center;gap:.5rem;
+}
+.card-title-icon{
+  width:32px;height:32px;border-radius:10px;
+  background:var(--accent-dim);
+  color:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;
+  border:1px solid var(--accent);
+}
+
+/* === HERO STATUS === */
+.hero-status{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:.75rem;
+  margin-bottom:1.25rem;
+}
+@media(max-width:600px){
+  .hero-status{grid-template-columns:repeat(2,1fr)}
+}
+.hero-stat{
+  background:rgba(13,17,27,.5);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:1rem .75rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  transition:all .25s ease;
+}
+.hero-stat:hover{border-color:var(--accent);transform:translateY(-2px)}
+.hero-stat .label{
+  font-size:.7rem;color:var(--text-3);
+  margin-bottom:.4rem;
+  display:flex;align-items:center;justify-content:center;gap:.3rem;
+  font-weight:500;
+}
+.hero-stat .value{
+  font-size:1.3rem;font-weight:800;
+  font-family:'JetBrains Mono',monospace;
+  background:var(--grad-1);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  letter-spacing:-.02em;
+}
+.hero-stat .sub{font-size:.65rem;color:var(--text-4);margin-top:.2rem}
 
 /* === PROGRESS === */
-.progress-wrap{
-  padding:0 1.5rem 1.5rem;
-  position:relative;z-index:1;
+.progress-block{margin-bottom:1.5rem}
+.progress-info{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:.6rem;flex-wrap:wrap;gap:.5rem;
 }
+.progress-label{display:flex;align-items:center;gap:.5rem;color:var(--text-2);font-size:.85rem;font-weight:500}
+.live-tag{
+  display:inline-flex;align-items:center;gap:.3rem;
+  padding:.15rem .5rem;
+  background:var(--accent-dim);
+  border:1px solid var(--accent);
+  color:var(--accent);
+  border-radius:6px;
+  font-size:.65rem;font-weight:700;
+  letter-spacing:.5px;
+}
+.live-tag::before{
+  content:'';width:5px;height:5px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 6px var(--accent);
+  animation:pulse 1s infinite;
+}
+.progress-values{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.8rem;
+  color:var(--text-2);
+}
+.progress-values .used{color:var(--orange);font-weight:700}
+.progress-values .total{color:var(--text-4)}
 .progress-track{
-  height:10px;
+  height:12px;
   background:var(--bg-3);
   border-radius:999px;
   overflow:hidden;
   position:relative;
   border:1px solid var(--border);
-  box-shadow:inset 0 1px 2px rgba(0,0,0,.3);
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.4);
 }
 .progress-fill{
   height:100%;
   width:0%;
-  background:var(--grad-1);
-  background-size:200% 100%;
+  background:linear-gradient(90deg,#00d97e,#00d4ff,#a855f7,#00d4ff,#00d97e);
+  background-size:300% 100%;
   border-radius:999px;
   transition:width .6s cubic-bezier(.4,0,.2,1);
   position:relative;
-  animation:progress-flow 2.5s linear infinite;
-  box-shadow:0 0 12px var(--accent-glow);
+  animation:progress-shift 4s linear infinite;
+  box-shadow:0 0 16px var(--accent-glow);
 }
 .progress-fill::after{
   content:'';position:absolute;inset:0;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);
-  animation:shimmer 2.5s linear infinite;
+  animation:shimmer 2s linear infinite;
 }
-.progress-fill.warn{background:linear-gradient(90deg,#fbbf24,#ff9d3d,#fbbf24);background-size:200% 100%}
-.progress-fill.warn::after{animation:shimmer 1.5s linear infinite}
+.progress-fill.warn{
+  background:linear-gradient(90deg,#fbbf24,#ff9d3d,#fbbf24);
+  background-size:200% 100%;
+}
 .progress-fill.danger{
   background:linear-gradient(90deg,#ff9d3d,#ff4d6d,#ff9d3d);
   background-size:200% 100%;
-  animation:progress-flow .8s linear infinite,shimmer 1s linear infinite;
+  animation:progress-shift .8s linear infinite;
 }
-.progress-stats{
+@keyframes progress-shift{0%{background-position:0% 0}100%{background-position:300% 0}}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
+.progress-meta{
   display:flex;justify-content:space-between;align-items:center;
-  margin-top:.85rem;
-  font-size:.78rem;
+  margin-top:.65rem;font-size:.75rem;color:var(--text-3);
 }
-.progress-used{color:var(--text);font-weight:700;font-family:'JetBrains Mono',monospace}
-.progress-used .label{color:var(--text-dim);font-weight:500;margin-left:.3rem}
-.progress-percent{color:var(--accent);font-weight:800;font-family:'JetBrains Mono',monospace}
-.progress-percent.warn{color:var(--yellow)}
-.progress-percent.danger{color:var(--red);animation:pulse 1s infinite}
+.percent-used{color:var(--accent);font-weight:800;font-family:'JetBrains Mono',monospace}
+.percent-used.warn{color:var(--yellow)}
+.percent-used.danger{color:var(--red);animation:pulse 1s infinite}
+.time-left{
+  display:inline-flex;align-items:center;gap:.3rem;
+  padding:.2rem .6rem;
+  background:var(--orange);
+  color:#06080d;
+  border-radius:6px;
+  font-weight:800;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;
+  letter-spacing:.3px;
+}
 
-/* === STATS GRID === */
-.stats-row{
+/* === STATS MINI === */
+.mini-stats{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:.5rem;
-  padding:0 1rem 1.25rem;
-  position:relative;z-index:1;
+  gap:.65rem;
+  padding-top:1.25rem;
+  border-top:1px solid var(--border);
 }
-.stat-tile{
-  background:rgba(31,35,48,.6);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:.85rem .5rem;
+.mini-stat{
   text-align:center;
-  transition:all .25s ease;
+  padding:.75rem .5rem;
+  background:rgba(13,17,27,.4);
+  border-radius:12px;
+  border:1px solid var(--border);
   position:relative;
   overflow:hidden;
 }
-.stat-tile:hover{transform:translateY(-2px);border-color:var(--accent-dim)}
-.stat-tile.live{border-color:var(--accent);box-shadow:0 0 16px var(--accent-dim)}
-.stat-tile.live::before{
+.mini-stat.live::before{
   content:'';position:absolute;top:0;right:0;left:0;height:2px;
   background:linear-gradient(90deg,transparent,var(--accent),transparent);
   animation:scan 1.5s linear infinite;
 }
 @keyframes scan{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-.stat-icon{font-size:1.15rem;margin-bottom:.3rem;display:block;line-height:1}
-.stat-val{font-size:1rem;font-weight:800;font-family:'JetBrains Mono',monospace;display:block;color:var(--text);transition:color .2s ease}
-.stat-tile.live .stat-val{color:var(--accent)}
-.stat-val.bump{animation:counter-bump .3s ease}
-.stat-lbl{font-size:.65rem;color:var(--text-dim);margin-top:.2rem;display:block;font-weight:500}
-
-/* === INFO SECTION === */
-.info-section{
-  background:var(--bg-1);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:1.25rem;
-  margin-bottom:1rem;
-  animation:slideUp .7s cubic-bezier(.16,1,.3,1) .1s backwards;
-}
-.info-row{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:.7rem 0;
-  border-bottom:1px solid var(--border);
-  font-size:.85rem;
-}
-.info-row:last-child{border-bottom:none;padding-bottom:0}
-.info-row:first-child{padding-top:0}
-.info-label{color:var(--text-dim);display:flex;align-items:center;gap:.5rem}
-.info-value{
+.mini-stat-icon{font-size:1.1rem;margin-bottom:.2rem;display:block}
+.mini-stat-val{
+  font-size:1rem;font-weight:800;
   font-family:'JetBrains Mono',monospace;
-  font-weight:600;
   color:var(--text);
-  font-size:.8rem;
-  direction:ltr;
+  display:block;
 }
-.info-value.copyable{cursor:pointer;transition:color .2s ease;max-width:60%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.info-value.copyable:hover{color:var(--accent)}
-.info-value.tag{
-  background:var(--accent-dim);
-  color:var(--accent);
-  padding:.2rem .55rem;
-  border-radius:6px;
-  font-size:.7rem;
-  font-weight:700;
-  border:1px solid var(--accent);
-}
+.mini-stat.live .mini-stat-val{color:var(--accent)}
+.mini-stat-lbl{font-size:.65rem;color:var(--text-4);margin-top:.15rem;display:block}
+@keyframes counter-bump{0%{transform:scale(1)}50%{transform:scale(1.15);color:var(--accent)}100%{transform:scale(1)}}
+.mini-stat-val.bump{animation:counter-bump .3s ease}
 
-/* === SUB LINK === */
-.sub-link{
-  background:var(--bg-2);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:1rem;
-  display:flex;align-items:center;gap:.85rem;
-  cursor:pointer;
-  transition:all .25s ease;
-  margin-bottom:1rem;
-  animation:slideUp .7s cubic-bezier(.16,1,.3,1) .15s backwards;
-}
-.sub-link:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
-.sub-link:active{transform:translateY(0) scale(.99)}
-.sub-link-icon{
-  width:40px;height:40px;border-radius:10px;
-  background:var(--grad-1);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.1rem;color:#0a0c11;
-  flex-shrink:0;
-  box-shadow:var(--shadow-glow);
-}
-.sub-link-content{flex:1;min-width:0}
-.sub-link-title{font-size:.72rem;color:var(--text-dim);margin-bottom:.2rem;font-weight:500}
-.sub-link-url{
-  font-family:'JetBrains Mono',monospace;
-  font-size:.72rem;
-  color:var(--text);
-  direction:ltr;
-  text-align:left;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-}
-.sub-link-badge{
-  background:var(--accent);
-  color:#0a0c11;
-  padding:.45rem 1rem;
-  border-radius:8px;
-  font-weight:900;
-  font-size:.78rem;
-  letter-spacing:1px;
-  flex-shrink:0;
-  box-shadow:0 4px 12px var(--accent-glow);
-}
-
-/* === APPS === */
-.apps-section{
-  background:var(--bg-1);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:1.25rem;
-  margin-bottom:1rem;
-  animation:slideUp .7s cubic-bezier(.16,1,.3,1) .2s backwards;
-}
-.section-title{
-  font-size:1rem;font-weight:700;
-  margin-bottom:1rem;
-  display:flex;align-items:center;gap:.5rem;
-  color:var(--text);
-}
-.section-title::before{
-  content:'';width:3px;height:18px;
-  background:var(--grad-1);
-  border-radius:2px;
-  box-shadow:0 0 8px var(--accent-glow);
-}
-.apps-grid{
+/* === CONFIG === */
+.configs-grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:.5rem;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:.75rem;
 }
-.app-tile{
-  background:var(--bg-2);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:.85rem .25rem;
-  text-align:center;
-  text-decoration:none;
-  color:var(--text);
-  transition:all .2s ease;
-  display:flex;flex-direction:column;align-items:center;gap:.3rem;
-  position:relative;
-  overflow:hidden;
-}
-.app-tile::after{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(circle at center,var(--accent-dim) 0%,transparent 70%);
-  opacity:0;transition:opacity .3s ease;
-}
-.app-tile:hover{border-color:var(--accent);background:var(--bg-3);transform:translateY(-2px)}
-.app-tile:hover::after{opacity:1}
-.app-tile:active{transform:translateY(0) scale(.96)}
-.app-tile-icon{font-size:1.4rem;position:relative;z-index:1}
-.app-tile-name{font-size:.72rem;font-weight:600;position:relative;z-index:1}
-.app-tile-tag{font-size:.58rem;color:var(--text-dim);position:relative;z-index:1}
-
-/* === CONFIGS === */
-.configs-section{
-  background:var(--bg-1);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:1.25rem;
-  margin-bottom:1rem;
-  animation:slideUp .7s cubic-bezier(.16,1,.3,1) .25s backwards;
-}
-.config-list{display:flex;flex-direction:column;gap:.7rem}
 .config-card{
-  background:var(--bg-2);
+  background:rgba(13,17,27,.5);
   border:1px solid var(--border);
   border-radius:14px;
   padding:1rem;
@@ -397,9 +383,9 @@ body{
   position:relative;
   overflow:hidden;
 }
-.config-card:hover{border-color:var(--accent);transform:translateY(-1px)}
+.config-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow-2)}
 .config-card.featured{
-  background:linear-gradient(135deg,var(--bg-2) 0%,rgba(34,217,122,.06) 100%);
+  background:linear-gradient(135deg,rgba(0,217,126,.05),rgba(0,212,255,.05));
   border-color:var(--accent);
 }
 .config-card.featured::before{
@@ -408,255 +394,403 @@ body{
 }
 .config-head{
   display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:.65rem;flex-wrap:wrap;gap:.4rem;
+  margin-bottom:.6rem;flex-wrap:wrap;gap:.4rem;
 }
 .config-name{font-weight:700;font-size:.9rem;display:flex;align-items:center;gap:.4rem}
-.config-name .live-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:pulse 2s infinite}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:pulse 2s infinite}
 .proto-badge{
+  padding:.2rem .55rem;border-radius:6px;
+  font-size:.65rem;font-weight:800;
+  letter-spacing:.5px;
   background:var(--accent-dim);
   color:var(--accent);
-  padding:.2rem .55rem;
-  border-radius:6px;
-  font-size:.68rem;
-  font-weight:700;
   border:1px solid var(--accent);
-  letter-spacing:.3px;
 }
-.proto-badge.alt{background:var(--blue-dim);color:var(--blue);border-color:var(--blue)}
-.proto-badge.warn{background:var(--orange-dim);color:var(--orange);border-color:var(--orange)}
+.proto-badge.trojan{background:rgba(168,85,247,.1);color:var(--purple);border-color:var(--purple)}
+.proto-badge.warp{background:rgba(0,212,255,.1);color:var(--cyan);border-color:var(--cyan)}
 .config-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.65rem}
 .config-tag{
-  background:var(--bg-3);
-  color:var(--text-dim);
-  padding:.15rem .5rem;
-  border-radius:5px;
+  background:rgba(13,17,27,.6);
+  color:var(--text-3);
+  padding:.15rem .5rem;border-radius:5px;
   font-size:.65rem;
   font-family:'JetBrains Mono',monospace;
   border:1px solid var(--border);
 }
 .config-link{
-  background:var(--bg-1);
+  background:rgba(6,8,13,.6);
   border:1px solid var(--border);
   border-radius:8px;
   padding:.6rem;
   font-family:'JetBrains Mono',monospace;
-  font-size:.65rem;
-  color:var(--text-dim);
+  font-size:.62rem;
+  color:var(--text-3);
   word-break:break-all;
-  max-height:48px;
-  overflow-y:auto;
+  max-height:50px;overflow-y:auto;
   margin-bottom:.65rem;
   cursor:pointer;
   transition:all .2s ease;
-  direction:ltr;
-  text-align:left;
-  position:relative;
+  direction:ltr;text-align:left;
 }
 .config-link::-webkit-scrollbar{width:3px}
 .config-link::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
-.config-link:hover{border-color:var(--accent);color:var(--text)}
-.config-actions{display:flex;gap:.4rem}
-.action-btn{
+.config-link:hover{border-color:var(--accent);color:var(--text-2)}
+.config-actions{display:flex;gap:.35rem}
+.action{
   flex:1;min-width:0;
-  background:var(--accent);
-  color:#0a0c11;
-  border:none;
-  padding:.55rem .5rem;
+  padding:.55rem .4rem;
   border-radius:8px;
-  font-weight:700;
-  font-size:.75rem;
-  cursor:pointer;
-  font-family:inherit;
-  transition:all .2s ease;
+  font-size:.72rem;font-weight:700;
+  cursor:pointer;font-family:inherit;
+  border:none;
   display:inline-flex;align-items:center;justify-content:center;gap:.3rem;
+  transition:all .2s ease;
 }
-.action-btn:hover{background:var(--accent-2);transform:translateY(-1px);box-shadow:0 4px 12px var(--accent-glow)}
-.action-btn:active{transform:translateY(0) scale(.97)}
-.action-btn.ghost{background:var(--bg-3);color:var(--text);border:1px solid var(--border)}
-.action-btn.ghost:hover{background:var(--bg-4);border-color:var(--accent);box-shadow:none}
-.action-btn.outline{background:transparent;color:var(--accent);border:1px solid var(--accent)}
-.action-btn.outline:hover{background:var(--accent-dim);box-shadow:none}
+.action.primary{background:var(--grad-1);color:#06080d}
+.action.primary:hover{box-shadow:0 4px 14px var(--accent-glow);transform:translateY(-1px)}
+.action.outline{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.action.outline:hover{background:var(--accent-dim)}
+.action.ghost{background:var(--bg-2);color:var(--text-2);border:1px solid var(--border)}
+.action.ghost:hover{background:var(--bg-3);border-color:var(--accent);color:var(--accent)}
+
+/* === SIDEBAR === */
+.sidebar{display:flex;flex-direction:column;gap:1.25rem}
+
+/* === APPS === */
+.apps-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:.6rem;
+}
+.app-tile{
+  background:rgba(13,17,27,.5);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:.85rem .5rem;
+  text-align:center;
+  text-decoration:none;
+  color:var(--text);
+  transition:all .2s ease;
+  display:flex;flex-direction:column;align-items:center;gap:.3rem;
+}
+.app-tile:hover{border-color:var(--accent);background:var(--bg-2);transform:translateY(-2px)}
+.app-tile-icon{font-size:1.5rem}
+.app-tile-name{font-size:.78rem;font-weight:600}
+.app-tile-tag{font-size:.6rem;color:var(--text-4)}
+
+/* === SUB LINK === */
+.sub-link{
+  background:var(--grad-4);
+  border:1px solid var(--accent);
+  border-radius:14px;
+  padding:1rem;
+  display:flex;align-items:center;gap:.85rem;
+  cursor:pointer;
+  transition:all .25s ease;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 0 20px var(--accent-dim);
+}
+.sub-link::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(0,217,126,.1),transparent);
+  animation:shimmer 3s linear infinite;
+}
+.sub-link:hover{transform:translateY(-2px);box-shadow:0 0 30px var(--accent-glow)}
+.sub-icon{
+  width:44px;height:44px;border-radius:12px;
+  background:var(--grad-1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;color:#06080d;
+  flex-shrink:0;
+  position:relative;z-index:1;
+}
+.sub-content{flex:1;min-width:0;position:relative;z-index:1}
+.sub-title{font-size:.7rem;color:var(--text-3);margin-bottom:.2rem}
+.sub-url{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;
+  color:var(--text);
+  direction:ltr;text-align:left;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.sub-badge{
+  background:var(--accent);
+  color:#06080d;
+  padding:.5rem 1rem;
+  border-radius:8px;
+  font-weight:900;
+  font-size:.78rem;
+  letter-spacing:1.5px;
+  flex-shrink:0;
+  position:relative;z-index:1;
+}
+
+/* === INFO === */
+.info-list{display:flex;flex-direction:column;gap:.6rem}
+.info-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.7rem .85rem;
+  background:rgba(13,17,27,.4);
+  border:1px solid var(--border);
+  border-radius:10px;
+  font-size:.82rem;
+}
+.info-label{color:var(--text-3);display:flex;align-items:center;gap:.5rem}
+.info-value{
+  font-family:'JetBrains Mono',monospace;
+  font-weight:600;color:var(--text);
+  font-size:.78rem;
+  direction:ltr;
+}
+.info-value.copy{cursor:pointer;transition:color .2s ease;max-width:60%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.info-value.copy:hover{color:var(--accent)}
+.info-value.tag{
+  background:var(--accent-dim);
+  color:var(--accent);
+  padding:.2rem .55rem;border-radius:6px;
+  font-size:.7rem;font-weight:700;
+  border:1px solid var(--accent);
+}
 
 /* === TOAST === */
 .toast{
   position:fixed;bottom:1.5rem;left:50%;
   transform:translateX(-50%) translateY(120px);
-  background:var(--accent);
-  color:#0a0c11;
-  padding:.75rem 1.25rem;
+  background:var(--grad-1);
+  color:#06080d;
+  padding:.8rem 1.4rem;
   border-radius:12px;
-  font-weight:700;
-  font-size:.85rem;
+  font-weight:700;font-size:.85rem;
   box-shadow:0 10px 30px var(--accent-glow);
   transition:transform .4s cubic-bezier(.68,-.55,.265,1.55);
   z-index:200;
   display:flex;align-items:center;gap:.5rem;
-  white-space:nowrap;
 }
 .toast.show{transform:translateX(-50%) translateY(0)}
 
 /* === FOOTER === */
 footer{
-  text-align:center;padding:1.5rem 1rem;
-  color:var(--text-dim);
-  font-size:.72rem;
+  text-align:center;padding:2rem 1rem 1rem;
+  color:var(--text-3);
+  font-size:.78rem;
 }
 footer .heart{color:var(--red);display:inline-block;animation:beat 1.2s ease infinite}
 @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.footer-row{display:flex;justify-content:center;gap:1.5rem;margin-top:.85rem;flex-wrap:wrap;font-size:.7rem}
+.footer-row span{display:flex;align-items:center;gap:.3rem}
+.footer-row .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
 
-/* === ANIMATIONS === */
-@keyframes fadeInDown{from{opacity:0;transform:translateY(-15px)}to{opacity:1;transform:translateY(0)}}
-@keyframes slideUp{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.15)}}
-@keyframes glow-pulse{0%,100%{box-shadow:0 0 12px var(--accent-glow)}50%{box-shadow:0 0 24px var(--accent-glow)}}
-@keyframes progress-flow{0%{background-position:0% 0}100%{background-position:200% 0}}
-@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
-@keyframes counter-bump{0%{transform:scale(1)}50%{transform:scale(1.1);color:var(--accent)}100%{transform:scale(1)}}
-
-/* === RESPONSIVE === */
-@media(max-width:380px){
-  .app{padding:.85rem .75rem}
-  .hero-card,.info-section,.apps-section,.configs-section{padding:1.1rem}
-  .hero-header{padding:1.1rem 1.1rem .85rem}
-  .progress-wrap{padding:0 1.1rem 1.1rem}
-  .stats-row{padding:0 .5rem 1.1rem;gap:.4rem}
-  .stat-tile{padding:.7rem .3rem}
-  .stat-val{font-size:.9rem}
-  .apps-grid{grid-template-columns:repeat(4,1fr);gap:.4rem}
-  .app-tile{padding:.7rem .2rem}
-  .app-tile-icon{font-size:1.2rem}
+@media(max-width:600px){
+  .app{padding:1rem .85rem}
+  .card{padding:1.15rem}
+  .top-nav{padding:.85rem 1rem;flex-wrap:wrap;gap:.75rem}
+  .brand-text h1{font-size:1.05rem}
+  .nav-btn{padding:0 .7rem;font-size:.75rem}
+  .nav-btn .label{display:none}
 }
 </style>
 </head>
 <body>
 
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
 <div class="app">
 
-  <!-- HEADER -->
-  <div class="app-header">
+  <!-- TOP NAV -->
+  <div class="top-nav">
     <div class="brand">
-      <div class="brand-icon">🛡️</div>
+      <div class="brand-logo">🛡️</div>
       <div class="brand-text">
-        <div class="brand-name">Warden VPN</div>
-        <div class="brand-sub">
-          <span class="live">cdn.daraflo.ir</span> · LIVE
+        <h1>Warden VPN Panel</h1>
+        <p><span class="status-dot"></span> cdn.daraflo.ir:2096</p>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-btn" id="vpnToggle" onclick="toggleVPN()"><span>⏸</span> <span class="label">توقف</span></button>
+      <button class="nav-btn" onclick="resetUsage()"><span>🔄</span> <span class="label">ریست</span></button>
+      <button class="nav-btn primary" onclick="copySubUrl()"><span>📋</span> <span class="label">کپی لینک</span></button>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <!-- MAIN COLUMN -->
+    <div class="main-col">
+
+      <!-- HERO CARD -->
+      <div class="card delay-1">
+        <div class="card-head">
+          <div class="card-title">
+            <span class="card-title-icon">📊</span>
+            <span>وضعیت اشتراک</span>
+          </div>
+          <span class="live-tag">LIVE</span>
+        </div>
+
+        <div class="hero-status">
+          <div class="hero-stat">
+            <div class="label">🛡️ وضعیت</div>
+            <div class="value" style="font-size:1rem">فعال</div>
+            <div class="sub">تایید شده</div>
+          </div>
+          <div class="hero-stat">
+            <div class="label">💎 حجم کل</div>
+            <div class="value">5.00</div>
+            <div class="sub">گیگابایت</div>
+          </div>
+          <div class="hero-stat">
+            <div class="label">📊 باقی‌مانده</div>
+            <div class="value" id="remainingVal">5.00</div>
+            <div class="sub">گیگابایت</div>
+          </div>
+          <div class="hero-stat">
+            <div class="label">⏱️ زمان</div>
+            <div class="value" id="timeRemaining" style="font-size:.95rem">23h 0m 0s</div>
+            <div class="sub">باقی‌مانده</div>
+          </div>
+        </div>
+
+        <div class="progress-block">
+          <div class="progress-info">
+            <div class="progress-label">
+              مصرف حجم
+            </div>
+            <div class="progress-values">
+              <span class="used" id="usedVal">162.66 KB</span>
+              <span class="total"> / 5.00 GB</span>
+            </div>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progressFill" style="width:0%"></div>
+          </div>
+          <div class="progress-meta">
+            <span><span class="percent-used" id="percentUsed">0.0031%</span> استفاده شده</span>
+            <span class="time-left">⏱ <span id="timeRemainingSmall">23h</span></span>
+          </div>
+        </div>
+
+        <div class="mini-stats">
+          <div class="mini-stat live" id="downTile">
+            <span class="mini-stat-icon">📥</span>
+            <span class="mini-stat-val" id="statDown">126.69</span>
+            <span class="mini-stat-lbl">KB دانلود</span>
+          </div>
+          <div class="mini-stat live" id="upTile">
+            <span class="mini-stat-icon">📤</span>
+            <span class="mini-stat-val" id="statUp">35.97</span>
+            <span class="mini-stat-lbl">KB آپلود</span>
+          </div>
+          <div class="mini-stat live" id="totalTile">
+            <span class="mini-stat-icon">📊</span>
+            <span class="mini-stat-val" id="statTotal">162.66</span>
+            <span class="mini-stat-lbl">KB کل</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="header-actions">
-      <button class="icon-btn" id="vpnToggle" onclick="toggleVPN()" title="روشن/خاموش">⏸</button>
-      <button class="icon-btn" onclick="resetUsage()" title="بازنشانی">🔄</button>
-    </div>
-  </div>
 
-  <!-- HERO CARD -->
-  <div class="hero-card">
-    <div class="hero-header">
-      <div class="hero-title">
-        <div class="hero-label">حجم باقی‌مانده</div>
-        <div class="hero-value" id="remainingVal">5.00<span class="unit">GB</span></div>
-      </div>
-      <div class="status-pill">فعال ✓</div>
-    </div>
-
-    <div class="progress-wrap">
-      <div class="progress-track">
-        <div class="progress-fill" id="progressFill" style="width:0%"></div>
-      </div>
-      <div class="progress-stats">
-        <div class="progress-used">
-          <span id="usedVal">162.66 KB</span>
-          <span class="label">از 5.00 GB</span>
+      <!-- CONFIGS -->
+      <div class="card delay-3">
+        <div class="card-head">
+          <div class="card-title">
+            <span class="card-title-icon">📡</span>
+            <span>کانفیگ‌های موجود</span>
+          </div>
+          <span style="color:var(--text-3);font-size:.75rem;font-family:'JetBrains Mono',monospace" id="configCount">2 عدد</span>
         </div>
-        <div class="progress-percent" id="percentUsed">0.0031%</div>
+        <div class="configs-grid" id="configList"></div>
       </div>
+
     </div>
 
-    <div class="stats-row">
-      <div class="stat-tile live" id="downTile">
-        <span class="stat-icon">📥</span>
-        <span class="stat-val" id="statDown">126.69</span>
-        <span class="stat-lbl">KB دانلود</span>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+      <!-- SUB LINK -->
+      <div class="sub-link delay-2" onclick="copySubUrl()">
+        <div class="sub-icon">🔗</div>
+        <div class="sub-content">
+          <div class="sub-title">لینک اشتراک</div>
+          <div class="sub-url" id="subLink">cdn.daraflo.ir:2096/sub/sub_f487ed87...</div>
+        </div>
+        <div class="sub-badge">SUB</div>
       </div>
-      <div class="stat-tile live" id="upTile">
-        <span class="stat-icon">📤</span>
-        <span class="stat-val" id="statUp">35.97</span>
-        <span class="stat-lbl">KB آپلود</span>
+
+      <!-- APPS -->
+      <div class="card delay-4">
+        <div class="card-head">
+          <div class="card-title">
+            <span class="card-title-icon">📲</span>
+            <span>اتصال سریع</span>
+          </div>
+        </div>
+        <div class="apps-grid">
+          <a class="app-tile" href="v2rayng://install-config?url=https%3A%2F%2Fcdn.daraflo.ir%3A2096%2Fsub%2Fsub_f487ed87-b45c-4cc4-017a-d10f80a7af95">
+            <span class="app-tile-icon">📱</span>
+            <span class="app-tile-name">v2rayNG</span>
+            <span class="app-tile-tag">Android</span>
+          </a>
+          <a class="app-tile" href="clash://install-config?url=https%3A%2F%2Fcdn.daraflo.ir%3A2096%2Fsub%2Fsub_f487ed87-b45c-4cc4-017a-d10f80a7af95">
+            <span class="app-tile-icon">🚀</span>
+            <span class="app-tile-name">Hiddify</span>
+            <span class="app-tile-tag">Multi</span>
+          </a>
+          <a class="app-tile" href="https://apps.apple.com/app/v2box-v2ray-client/id6446448075">
+            <span class="app-tile-icon">🍎</span>
+            <span class="app-tile-name">V2Box</span>
+            <span class="app-tile-tag">iOS</span>
+          </a>
+          <a class="app-tile" href="https://github.com/2dust/v2rayN/releases">
+            <span class="app-tile-icon">💻</span>
+            <span class="app-tile-name">v2rayN</span>
+            <span class="app-tile-tag">Windows</span>
+          </a>
+        </div>
       </div>
-      <div class="stat-tile live" id="totalTile">
-        <span class="stat-icon">📊</span>
-        <span class="stat-val" id="statTotal">162.66</span>
-        <span class="stat-lbl">KB کل</span>
+
+      <!-- INFO -->
+      <div class="card delay-5">
+        <div class="card-head">
+          <div class="card-title">
+            <span class="card-title-icon">ℹ️</span>
+            <span>اطلاعات</span>
+          </div>
+        </div>
+        <div class="info-list">
+          <div class="info-item">
+            <span class="info-label">🆔 شناسه</span>
+            <span class="info-value copy" id="subId" onclick="copyText('subId', this)">sub_f487ed87-b45c-4cc4-017a-d10f80a7af95</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">🕐 آخرین فعالیت</span>
+            <span class="info-value" id="lastActivity">—</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">📅 تاریخ پایان</span>
+            <span class="info-value" id="endDate">—</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">🛰️ پروتکل</span>
+            <span class="info-value tag">VLESS</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">🔒 امنیت</span>
+            <span class="info-value tag">TLS 1.3</span>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <!-- INFO -->
-  <div class="info-section">
-    <div class="info-row">
-      <span class="info-label">🆔 شناسه اشتراک</span>
-      <span class="info-value copyable" id="subId" onclick="copyText('subId', this)">sub_f487ed87-b45c-4cc4-017a-d10f80a7af95</span>
     </div>
-    <div class="info-row">
-      <span class="info-label">⏱️ زمان باقی‌مانده</span>
-      <span class="info-value" id="timeRemaining">23h 0m 0s</span>
-    </div>
-    <div class="info-row">
-      <span class="info-label">🕐 آخرین فعالیت</span>
-      <span class="info-value" id="lastActivity">—</span>
-    </div>
-    <div class="info-row">
-      <span class="info-label">📅 تاریخ پایان</span>
-      <span class="info-value" id="endDate">—</span>
-    </div>
-  </div>
-
-  <!-- SUB LINK -->
-  <div class="sub-link" onclick="copySubUrl()">
-    <div class="sub-link-icon">🔗</div>
-    <div class="sub-link-content">
-      <div class="sub-link-title">لینک اشتراک</div>
-      <div class="sub-link-url" id="subLink">cdn.daraflo.ir:2096/sub/sub_f487ed87...</div>
-    </div>
-    <div class="sub-link-badge">SUB</div>
-  </div>
-
-  <!-- APPS -->
-  <div class="apps-section">
-    <h2 class="section-title">📲 اتصال سریع</h2>
-    <div class="apps-grid">
-      <a class="app-tile" href="v2rayng://install-config?url=https%3A%2F%2Fcdn.daraflo.ir%3A2096%2Fsub%2Fsub_f487ed87-b45c-4cc4-017a-d10f80a7af95">
-        <span class="app-tile-icon">📱</span>
-        <span class="app-tile-name">v2rayNG</span>
-        <span class="app-tile-tag">Android</span>
-      </a>
-      <a class="app-tile" href="clash://install-config?url=https%3A%2F%2Fcdn.daraflo.ir%3A2096%2Fsub%2Fsub_f487ed87-b45c-4cc4-017a-d10f80a7af95">
-        <span class="app-tile-icon">🚀</span>
-        <span class="app-tile-name">Hiddify</span>
-        <span class="app-tile-tag">Multi</span>
-      </a>
-      <a class="app-tile" href="https://apps.apple.com/app/v2box-v2ray-client/id6446448075">
-        <span class="app-tile-icon">🍎</span>
-        <span class="app-tile-name">V2Box</span>
-        <span class="app-tile-tag">iOS</span>
-      </a>
-      <a class="app-tile" href="https://github.com/2dust/v2rayN/releases">
-        <span class="app-tile-icon">💻</span>
-        <span class="app-tile-name">v2rayN</span>
-        <span class="app-tile-tag">Win</span>
-      </a>
-    </div>
-  </div>
-
-  <!-- CONFIGS -->
-  <div class="configs-section">
-    <h2 class="section-title">📡 کانفیگ‌های موجود</h2>
-    <div class="config-list" id="configList"></div>
   </div>
 
   <footer>
-    ساخته شده با <span class="heart">❤️</span> توسط <strong>Warden VPN</strong>
+    ساخته شده با <span class="heart">❤️</span> توسط <strong style="color:var(--accent)">Warden VPN</strong> · الهام‌گرفته از BPB Panel
+    <div class="footer-row">
+      <span><span class="dot"></span> آنلاین</span>
+      <span>⚡ Real-time</span>
+      <span>🛡️ End-to-End</span>
+    </div>
   </footer>
 
 </div>
@@ -664,7 +798,6 @@ footer .heart{color:var(--red);display:inline-block;animation:beat 1.2s ease inf
 <div class="toast" id="toast">✅ کپی شد!</div>
 
 <script>
-// === CONFIG ===
 const subUrl = "https://cdn.daraflo.ir:2096/sub/sub_f487ed87-b45c-4cc4-017a-d10f80a7af95";
 const subId = "sub_f487ed87-b45c-4cc4-017a-d10f80a7af95";
 const TOTAL_BYTES = 5 * 1024 * 1024 * 1024;
@@ -673,37 +806,36 @@ const startTime = Date.now();
 
 const configs = [
   {
-    name: "⏩ BetForward - اصلی",
-    proto: "VLESS",
-    protoClass: "",
-    featured: true,
-    tags: ["🌐 snapp.ir:2087","🔒 TLS 1.3","🛰️ WebSocket","🇩🇪 Germany","📊 5GB","⏱️ 23H"],
-    url: "vless://f487ed87-b45c-4cc4-017a-d10f80a7af95@snapp.ir:2087?alpn=h2%2Chttp%2F1.1%2Ch3&encryption=none&fp=chrome&host=cdn.daraflo.ir&path=%2FBetForward&security=tls&sni=cdn.daraflo.ir&type=ws#%E2%8F%A9%EF%B8%8FBetForward-5.00GB%F0%9F%93%8A-23H%E2%8F%B3"
+    name:"⏩ BetForward - اصلی",
+    proto:"VLESS",
+    protoClass:"",
+    featured:true,
+    tags:["🌐 snapp.ir:2087","🔒 TLS 1.3","🛰️ WebSocket","🇩🇪 Germany","📊 5GB"],
+    url:"vless://f487ed87-b45c-4cc4-017a-d10f80a7af95@snapp.ir:2087?alpn=h2%2Chttp%2F1.1%2Ch3&encryption=none&fp=chrome&host=cdn.daraflo.ir&path=%2FBetForward&security=tls&sni=cdn.daraflo.ir&type=ws#%E2%8F%A9%EF%B8%8FBetForward-5.00GB%F0%9F%93%8A-23H%E2%8F%B3"
   },
   {
-    name: "⏩ BetForward - پشتیبان",
-    proto: "VLESS",
-    protoClass: "alt",
-    featured: false,
-    tags: ["🌐 snapp.ir:2087","🔒 TLS 1.3","🛰️ WebSocket","🇩🇪 Germany"],
-    url: "vless://f487ed87-b45c-4cc4-017a-d10f80a7af95@snapp.ir:2087?alpn=h2%2Chttp%2F1.1%2Ch3&encryption=none&fp=chrome&host=cdn.daraflo.ir&path=%2FBetForward&security=tls&sni=cdn.daraflo.ir&type=ws#%E2%8F%A9%EF%B8%8FBetForward-5.00GB%F0%9F%93%8A-23H%E2%8F%B3"
+    name:"⏩ BetForward - پشتیبان",
+    proto:"VLESS",
+    protoClass:"",
+    featured:false,
+    tags:["🌐 snapp.ir:2087","🔒 TLS 1.3","🛰️ WebSocket","🇩🇪 Germany"],
+    url:"vless://f487ed87-b45c-4cc4-017a-d10f80a7af95@snapp.ir:2087?alpn=h2%2Chttp%2F1.1%2Ch3&encryption=none&fp=chrome&host=cdn.daraflo.ir&path=%2FBetForward&security=tls&sni=cdn.daraflo.ir&type=ws#%E2%8F%A9%EF%B8%8FBetForward-5.00GB%F0%9F%93%8A-23H%E2%8F%B3"
   }
 ];
 
-// === STATE ===
 let usedBytes = 162.66 * 1024;
 let downBytes = 126.69 * 1024;
 let upBytes = 35.97 * 1024;
 let vpnActive = true;
 let bumpCount = 0;
 
-// === INIT ===
 function init() {
   document.getElementById('subLink').innerText = subUrl;
   document.getElementById('subLink').title = subUrl;
+  document.getElementById('configCount').innerText = configs.length + ' عدد';
   
   const now = new Date();
-  const endDate = new Date(now.getTime() + validHours * 60 * 60 * 1000);
+  const endDate = new Date(now.getTime() + validHours * 3600 * 1000);
   document.getElementById('lastActivity').innerText = formatDate(now);
   document.getElementById('endDate').innerText = formatDate(endDate);
   
@@ -714,40 +846,36 @@ function init() {
   setInterval(() => {
     document.getElementById('lastActivity').innerText = formatDate(new Date());
   }, 30000);
-  
   updateUsage();
 }
 
 function renderConfigs() {
   const html = configs.map((c, i) => `
-    <div class="config-card ${c.featured ? 'featured' : ''}">
+    <div class="config-card ${c.featured?'featured':''}">
       <div class="config-head">
         <span class="config-name">
           <span class="live-dot"></span>
           ${c.name}
-          ${c.featured ? '<span style="background:var(--accent);color:#0a0c11;padding:.1rem .5rem;border-radius:4px;font-size:.62rem;font-weight:800">FEATURED</span>' : ''}
         </span>
         <span class="proto-badge ${c.protoClass}">${c.proto}</span>
       </div>
       <div class="config-tags">
-        ${c.tags.map(t => `<span class="config-tag">${t}</span>`).join('')}
+        ${c.tags.map(t=>`<span class="config-tag">${t}</span>`).join('')}
       </div>
       <div class="config-link" onclick="copyConfig(${i}, this)">${c.url}</div>
       <div class="config-actions">
-        <button class="action-btn" onclick="copyConfig(${i}, this)">📋 کپی</button>
-        <button class="action-btn outline" onclick="showQR(${i})">📷 QR</button>
-        <button class="action-btn ghost" onclick="openInApp(${i})">🚀 باز</button>
+        <button class="action primary" onclick="copyConfig(${i}, this)">📋 کپی</button>
+        <button class="action outline" onclick="showQR(${i})">📷 QR</button>
+        <button class="action ghost" onclick="openInApp(${i})">🚀 باز</button>
       </div>
     </div>
   `).join('');
   document.getElementById('configList').innerHTML = html;
 }
 
-// === REAL-TIME USAGE ===
 function updateUsage() {
   if (!vpnActive) return;
   
-  // Realistic traffic: 50-250 KB/s down, 10-60 KB/s up
   const baseDown = 1024 * (50 + Math.random() * 200);
   const baseUp = 1024 * (10 + Math.random() * 50);
   const spike = Math.random() < 0.08 ? 1024 * (300 + Math.random() * 1000) : 0;
@@ -774,29 +902,22 @@ function updateUsage() {
   upEl.innerText = formatBytes(upBytes);
   totalEl.innerText = formatBytes(usedBytes);
   usedEl.innerText = formatBytes(usedBytes);
-  remainEl.innerHTML = formatBytes(remaining).split(' ')[0] + '<span class="unit">' + formatBytes(remaining).split(' ')[1] + '</span>';
+  remainEl.innerText = formatBytes(remaining).split(' ')[0];
   
   const percent = (usedBytes / TOTAL_BYTES) * 100;
   percentEl.innerText = percent.toFixed(4) + '%';
   fillEl.style.width = Math.min(percent, 100) + '%';
   
-  // Color states
   fillEl.classList.remove('warn','danger');
   percentEl.classList.remove('warn','danger');
-  if (percent >= 90) {
-    fillEl.classList.add('danger');
-    percentEl.classList.add('danger');
-  } else if (percent >= 70) {
-    fillEl.classList.add('warn');
-    percentEl.classList.add('warn');
-  }
+  if (percent >= 90) { fillEl.classList.add('danger'); percentEl.classList.add('danger'); }
+  else if (percent >= 70) { fillEl.classList.add('warn'); percentEl.classList.add('warn'); }
   
-  // Bump animation every 3s
   bumpCount++;
   if (bumpCount % 3 === 0) {
     [downEl, upEl, totalEl].forEach(el => {
       el.classList.add('bump');
-      setTimeout(() => el.classList.remove('bump'), 300);
+      setTimeout(()=>el.classList.remove('bump'), 300);
     });
   }
 }
@@ -809,26 +930,27 @@ function formatBytes(b) {
 }
 
 function formatDate(d) {
-  const pad = n => n.toString().padStart(2, '0');
+  const pad = n => n.toString().padStart(2,'0');
   return `${d.getFullYear()}/${pad(d.getMonth()+1)}/${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
 function updateCountdown() {
   const elapsed = (Date.now() - startTime) / 1000;
-  const remainingSec = Math.max(0, validHours * 3600 - elapsed);
-  const h = Math.floor(remainingSec / 3600);
-  const m = Math.floor((remainingSec % 3600) / 60);
-  const s = Math.floor(remainingSec % 60);
-  const el = document.getElementById('timeRemaining');
-  if (el) el.innerText = `${h}h ${m}m ${s}s`;
+  const r = Math.max(0, validHours * 3600 - elapsed);
+  const h = Math.floor(r/3600);
+  const m = Math.floor((r%3600)/60);
+  const s = Math.floor(r%60);
+  const txt = `${h}h ${m}m ${s}s`;
+  const el1 = document.getElementById('timeRemaining');
+  const el2 = document.getElementById('timeRemainingSmall');
+  if (el1) el1.innerText = txt;
+  if (el2) el2.innerText = h > 0 ? `${h}h ${m}m` : `${m}m`;
 }
 
-// === CONTROLS ===
 function toggleVPN() {
   vpnActive = !vpnActive;
   const btn = document.getElementById('vpnToggle');
-  btn.innerText = vpnActive ? '⏸' : '▶';
-  btn.classList.toggle('active', !vpnActive);
+  btn.innerHTML = vpnActive ? '<span>⏸</span> <span class="label">توقف</span>' : '<span>▶</span> <span class="label">شروع</span>';
   document.getElementById('downTile').classList.toggle('live', vpnActive);
   document.getElementById('upTile').classList.toggle('live', vpnActive);
   document.getElementById('totalTile').classList.toggle('live', vpnActive);
@@ -836,38 +958,35 @@ function toggleVPN() {
 }
 
 function resetUsage() {
-  usedBytes = 0;
-  downBytes = 0;
-  upBytes = 0;
+  usedBytes = 0; downBytes = 0; upBytes = 0;
   updateUsage();
-  showToast('🔄 بازنشانی شد');
+  showToast('🔄 ریست شد');
 }
 
-// === COPY ===
 function copyText(id, btn) {
   const el = document.getElementById(id);
-  navigator.clipboard.writeText(el.innerText || el.textContent).then(() => showToast('✅ کپی شد!', btn));
+  navigator.clipboard.writeText(el.innerText || el.textContent).then(()=>showToast('✅ کپی شد!', btn));
 }
 
 function copyConfig(i, btn) {
-  navigator.clipboard.writeText(configs[i].url).then(() => showToast('✅ کانفیگ کپی شد!', btn));
+  navigator.clipboard.writeText(configs[i].url).then(()=>showToast('✅ کانفیگ کپی شد!', btn));
 }
 
 function copySubUrl() {
-  navigator.clipboard.writeText(subUrl).then(() => showToast('✅ لینک اشتراک کپی شد!'));
+  navigator.clipboard.writeText(subUrl).then(()=>showToast('✅ لینک اشتراک کپی شد!'));
 }
 
 function showToast(msg, btn) {
-  const toast = document.getElementById('toast');
-  toast.innerText = msg;
-  toast.classList.add('show');
-  const orig = btn ? btn.innerText : '';
+  const t = document.getElementById('toast');
+  t.innerText = msg;
+  t.classList.add('show');
+  const orig = btn ? btn.innerHTML : '';
   if (btn) {
-    btn.innerText = msg;
-    setTimeout(() => { btn.innerText = orig; }, 1500);
+    btn.innerHTML = msg;
+    setTimeout(()=>{btn.innerHTML=orig;}, 1500);
   }
   clearTimeout(window._tT);
-  window._tT = setTimeout(() => toast.classList.remove('show'), 2200);
+  window._tT = setTimeout(()=>t.classList.remove('show'), 2200);
 }
 
 function openInApp(i) {
@@ -877,14 +996,13 @@ function openInApp(i) {
 function showQR(i) {
   const m = document.createElement('div');
   m.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);z-index:100;display:flex;align-items:center;justify-content:center;padding:1rem';
-  m.onclick = e => { if (e.target === m) document.body.removeChild(m); };
+  m.onclick = e => { if (e.target===m) document.body.removeChild(m); };
   const b = document.createElement('div');
   b.style.cssText = 'background:#fff;padding:1.5rem;border-radius:18px;display:flex;flex-direction:column;align-items:center;gap:1rem;max-width:90vw;animation:slideUp .3s ease';
-  b.innerHTML = `<div style="color:#0a0c11;font-weight:800;font-size:1.05rem">${configs[i].name}</div><canvas id="qrCanvas"></canvas><button style="background:#0a0c11;color:#fff;border:none;padding:.6rem 1.5rem;border-radius:8px;cursor:pointer;font-weight:700;font-family:inherit">✕ بستن</button>`;
+  b.innerHTML = `<div style="color:#06080d;font-weight:800;font-size:1.05rem">${configs[i].name}</div><canvas id="qrCanvas"></canvas><button style="background:#06080d;color:#fff;border:none;padding:.6rem 1.5rem;border-radius:8px;cursor:pointer;font-weight:700;font-family:inherit">✕ بستن</button>`;
   b.querySelector('button').onclick = () => document.body.removeChild(m);
   m.appendChild(b);
   document.body.appendChild(m);
-  
   const s = document.createElement('script');
   s.src = 'https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js';
   s.onload = () => QRCode.toCanvas(document.getElementById('qrCanvas'), configs[i].url, {width: 260, margin: 1});
